@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		211CA14221A52F9C0020E7A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211CA14121A52F9C0020E7A4 /* AppDelegate.swift */; };
-		211CA14421A52F9C0020E7A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211CA14321A52F9C0020E7A4 /* ViewController.swift */; };
+		211CA14421A52F9C0020E7A4 /* RGHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211CA14321A52F9C0020E7A4 /* RGHome.swift */; };
 		211CA14721A52F9C0020E7A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14521A52F9C0020E7A4 /* Main.storyboard */; };
 		211CA14921A52F9C0020E7A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14821A52F9C0020E7A4 /* Assets.xcassets */; };
 		211CA14C21A52F9C0020E7A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14A21A52F9C0020E7A4 /* LaunchScreen.storyboard */; };
@@ -28,7 +28,7 @@
 /* Begin PBXFileReference section */
 		211CA13E21A52F9C0020E7A4 /* RGRedditClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RGRedditClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		211CA14121A52F9C0020E7A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		211CA14321A52F9C0020E7A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		211CA14321A52F9C0020E7A4 /* RGHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHome.swift; sourceTree = "<group>"; };
 		211CA14621A52F9C0020E7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		211CA14821A52F9C0020E7A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		211CA14B21A52F9C0020E7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -77,9 +77,10 @@
 		211CA14021A52F9C0020E7A4 /* RGRedditClient */ = {
 			isa = PBXGroup;
 			children = (
+				211CA16321A530960020E7A4 /* Network */,
+				211CA16221A5306F0020E7A4 /* Home */,
+				211CA16121A5305C0020E7A4 /* Model */,
 				211CA14121A52F9C0020E7A4 /* AppDelegate.swift */,
-				211CA14321A52F9C0020E7A4 /* ViewController.swift */,
-				211CA14521A52F9C0020E7A4 /* Main.storyboard */,
 				211CA14821A52F9C0020E7A4 /* Assets.xcassets */,
 				211CA14A21A52F9C0020E7A4 /* LaunchScreen.storyboard */,
 				211CA14D21A52F9C0020E7A4 /* Info.plist */,
@@ -94,6 +95,29 @@
 				211CA15821A52F9C0020E7A4 /* Info.plist */,
 			);
 			path = RGRedditClientTests;
+			sourceTree = "<group>";
+		};
+		211CA16121A5305C0020E7A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		211CA16221A5306F0020E7A4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				211CA14321A52F9C0020E7A4 /* RGHome.swift */,
+				211CA14521A52F9C0020E7A4 /* Main.storyboard */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		211CA16321A530960020E7A4 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,7 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				211CA14421A52F9C0020E7A4 /* ViewController.swift in Sources */,
+				211CA14421A52F9C0020E7A4 /* RGHome.swift in Sources */,
 				211CA14221A52F9C0020E7A4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
