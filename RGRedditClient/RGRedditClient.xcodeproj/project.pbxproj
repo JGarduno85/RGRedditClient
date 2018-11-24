@@ -12,7 +12,9 @@
 		211CA14721A52F9C0020E7A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14521A52F9C0020E7A4 /* Main.storyboard */; };
 		211CA14921A52F9C0020E7A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14821A52F9C0020E7A4 /* Assets.xcassets */; };
 		211CA14C21A52F9C0020E7A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14A21A52F9C0020E7A4 /* LaunchScreen.storyboard */; };
-		211CA15721A52F9C0020E7A4 /* RGRedditClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211CA15621A52F9C0020E7A4 /* RGRedditClientTests.swift */; };
+		213A21C221A7DB650079B61B /* RGPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A21C121A7DB650079B61B /* RGPostFeed.swift */; };
+		213A21C621A7DBD90079B61B /* RGPostFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A21C521A7DBD90079B61B /* RGPostFeedTests.swift */; };
+		213A21CA21A7DD1B0079B61B /* topRedditFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 213A21C921A7DD1B0079B61B /* topRedditFeed.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +36,10 @@
 		211CA14B21A52F9C0020E7A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		211CA14D21A52F9C0020E7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		211CA15221A52F9C0020E7A4 /* RGRedditClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RGRedditClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		211CA15621A52F9C0020E7A4 /* RGRedditClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGRedditClientTests.swift; sourceTree = "<group>"; };
 		211CA15821A52F9C0020E7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		213A21C121A7DB650079B61B /* RGPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGPostFeed.swift; sourceTree = "<group>"; };
+		213A21C521A7DBD90079B61B /* RGPostFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGPostFeedTests.swift; sourceTree = "<group>"; };
+		213A21C921A7DD1B0079B61B /* topRedditFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = topRedditFeed.json; path = ../../../../TestJsons/topRedditFeed.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,7 +95,7 @@
 		211CA15521A52F9C0020E7A4 /* RGRedditClientTests */ = {
 			isa = PBXGroup;
 			children = (
-				211CA15621A52F9C0020E7A4 /* RGRedditClientTests.swift */,
+				213A21C721A7DCF00079B61B /* ModelTests */,
 				211CA15821A52F9C0020E7A4 /* Info.plist */,
 			);
 			path = RGRedditClientTests;
@@ -100,6 +104,7 @@
 		211CA16121A5305C0020E7A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				213A21C121A7DB650079B61B /* RGPostFeed.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -118,6 +123,24 @@
 			children = (
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		213A21C721A7DCF00079B61B /* ModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				213A21C821A7DD020079B61B /* jsons */,
+				213A21C521A7DBD90079B61B /* RGPostFeedTests.swift */,
+			);
+			name = ModelTests;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		213A21C821A7DD020079B61B /* jsons */ = {
+			isa = PBXGroup;
+			children = (
+				213A21C921A7DD1B0079B61B /* topRedditFeed.json */,
+			);
+			path = jsons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +196,7 @@
 					};
 					211CA15121A52F9C0020E7A4 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 						TestTargetID = 211CA13D21A52F9C0020E7A4;
 					};
 				};
@@ -211,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213A21CA21A7DD1B0079B61B /* topRedditFeed.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -223,6 +248,7 @@
 			files = (
 				211CA14421A52F9C0020E7A4 /* RGHome.swift in Sources */,
 				211CA14221A52F9C0020E7A4 /* AppDelegate.swift in Sources */,
+				213A21C221A7DB650079B61B /* RGPostFeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				211CA15721A52F9C0020E7A4 /* RGRedditClientTests.swift in Sources */,
+				213A21C621A7DBD90079B61B /* RGPostFeedTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,6 +445,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RGRedditClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -428,6 +455,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hpx.RGRedditClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RGRedditClient.app/RGRedditClient";
@@ -439,6 +467,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = RGRedditClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
