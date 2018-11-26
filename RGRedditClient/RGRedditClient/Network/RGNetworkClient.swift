@@ -8,12 +8,16 @@
 
 import Foundation
 
-public final class RGNetworkClient: NSObject {
+typealias ClientSuccess = (_ data: Data?,_ response: URLResponse?) -> Void
+typealias ClientFail = (_ response: URLResponse?,_ error: Error?) -> Void
+
+protocol RGNetworkFetchable {
+    func getResults(success: @escaping ClientSuccess,fail: @escaping ClientFail)
+}
+
+public final class RGNetworkClient: NSObject,RGNetworkFetchable {
     public static var defaultSession: RGSession = URLSession.shared
     public lazy var session: RGSession = RGNetworkClient.defaultSession
-    
-    typealias ClientSuccess = (_ data: Data?,_ response: URLResponse?) -> Void
-    typealias ClientFail = (_ response: URLResponse?,_ error: Error?) -> Void
 
     private var dataTask: DataTask?
     private var request: RGRequest
