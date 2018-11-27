@@ -10,7 +10,7 @@ import UIKit
 
 class RGHome: UIViewController {
 
-    let homeDataServiceProvider: HomeServiceProviding = HomeServiceProvider.createHomeServiceProvider()
+    let homeDataServiceProvider: RGHomeServiceProviding = RGHomeServiceProvider.createHomeServiceProvider()
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

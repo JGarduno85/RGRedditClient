@@ -10,16 +10,11 @@ import XCTest
 @testable import RGRedditClient
 
 class RGHomeServiceProviderTests: XCTestCase {
-    func testGetFeeds() {
-        
-    }
-}
-
-
-extension RGHomeServiceProviderTests {
-    class ClientMocker: RGNetworkFetchable {
-        func getResults(success: @escaping (_ data: Data?,_ response: URLResponse?) -> Void,fail: @escaping (_ response: URLResponse?,_ error: Error?) -> Void) {
-            
+    func testIfRequestFeedsGetFeeds() {
+        let sut = RGHomeServiceProvider.createHomeServiceProvider()
+        sut.getHomeFeeds { (feed, error) in
+            XCTAssertNil(error)
+            XCTAssertNotNil(feed)
         }
     }
 }

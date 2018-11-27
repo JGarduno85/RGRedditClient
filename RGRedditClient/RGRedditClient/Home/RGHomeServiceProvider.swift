@@ -8,18 +8,22 @@
 
 import Foundation
 
-protocol HomeServiceProviding {
+protocol RGHomeServiceProviding {
     func getHomeFeeds(completed:@escaping (RGFeedContainer?,Error?) -> Void)
 }
 
-class HomeServiceProvider: HomeServiceProviding {
+class RGHomeServiceProvider: RGHomeServiceProviding {
     
     private init() {
+        if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] != nil {
+            createMockClient()
+            return
+        }
         createNetworkClient()
     }
     
-    static func createHomeServiceProvider() -> HomeServiceProvider {
-        return HomeServiceProvider()
+    static func createHomeServiceProvider() -> RGHomeServiceProvider {
+        return RGHomeServiceProvider()
     }
     
     fileprivate var client: RGNetworkClient?
@@ -54,11 +58,27 @@ class HomeServiceProvider: HomeServiceProviding {
     }
 }
 
-extension HomeServiceProvider {
+extension RGHomeServiceProvider {
     fileprivate func createNetworkClient() {
         guard let url = RGNetworkHomeHelper.homeBaseUrl() else {
             return
         }
         client = RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: nil)
+    }
+    
+    fileprivate func createMockClient() {
+        guard let url = RGNetworkHomeHelper.homeBaseUrl() else {
+            return
+        }
+        guard let bundle = Bundle(identifier: "com.hpx.RGRedditClientTests") else {
+            return
+        }
+        do {
+            let data = try RGDataMocker.createRGDataMocker().retrievepostFeed(fromJsonFile: "topRedditFeed", bundle: bundle)
+            let mockSession = MockSession(data: data, error: nil)
+            client = RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: mockSession)
+        } catch {
+            return
+        }
     }
 }

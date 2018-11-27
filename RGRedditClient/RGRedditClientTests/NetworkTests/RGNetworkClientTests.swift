@@ -10,7 +10,13 @@ import XCTest
 @testable import RGRedditClient
 
 class RGNetworkClientTests: XCTestCase {
-    let baseUrl = "https://www.reddit.com/r/all/top/.json?count=50"
+    var baseUrl: String!
+    var bundle: Bundle!
+    override func setUp() {
+        bundle = Bundle(for: type(of: self))
+        baseUrl = "https://www.reddit.com/r/all/top/.json?count=50"
+    }
+    
     func testSuccessCalledIfErrorNil() {
         let session = MockSession(data:Data(),error:nil)
         guard let url = URL(string: baseUrl) else {
@@ -30,7 +36,8 @@ class RGNetworkClientTests: XCTestCase {
     }
     
     func testIfRequestMockedDataRetrieveIt() {
-        let data = try! RGDataMocker().retrievepostFeed(fromJsonFile: "topRedditFeed")
+        
+        let data = try! RGDataMocker.createRGDataMocker().retrievepostFeed(fromJsonFile: "topRedditFeed", bundle: bundle)
         let session = MockSession(data: data, error: nil)
         guard let url = URL(string: baseUrl) else {
             XCTFail("Couldn't create the URL")
@@ -58,34 +65,5 @@ class RGNetworkClientTests: XCTestCase {
         }) { (response, error) in
             XCTAssertNotNil(error)
         }
-    }
-}
-
-extension RGNetworkClientTests {
-    class RGDataMocker {
-        fileprivate init() {}
-        static public func createRGDataMocker() -> RGDataMocker {
-            return RGDataMocker()
-        }
-        
-        func retrievepostFeed(fromJsonFile json: String)throws -> Data {
-            let bundle = Bundle(for: type(of: self))
-            guard let path = bundle.path(forResource: json, ofType: "json") else {
-                throw RGDataMockerError.fileNotFound
-            }
-            
-            let pathUrl = URL(fileURLWithPath: path)
-            do {
-                let jsonData = try Data(contentsOf: pathUrl, options: .alwaysMapped)
-                return jsonData
-            } catch {
-                throw RGDataMockerError.canNotGetData
-            }
-        }
-    }
-    
-    enum RGDataMockerError: Error {
-        case fileNotFound
-        case canNotGetData
     }
 }

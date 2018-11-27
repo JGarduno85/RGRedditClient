@@ -14,7 +14,6 @@
 		211CA14C21A52F9C0020E7A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 211CA14A21A52F9C0020E7A4 /* LaunchScreen.storyboard */; };
 		213A21C221A7DB650079B61B /* RGPostFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A21C121A7DB650079B61B /* RGPostFeed.swift */; };
 		213A21C621A7DBD90079B61B /* RGPostFeedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A21C521A7DBD90079B61B /* RGPostFeedTests.swift */; };
-		213A21CA21A7DD1B0079B61B /* topRedditFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 213A21C921A7DD1B0079B61B /* topRedditFeed.json */; };
 		213A23BF21AB97830079B61B /* RGRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23BE21AB97830079B61B /* RGRequestTests.swift */; };
 		213A23C121AB98330079B61B /* RGRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23C021AB98330079B61B /* RGRequest.swift */; };
 		213A23C321AB9D540079B61B /* RGNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23C221AB9D540079B61B /* RGNetworkClient.swift */; };
@@ -24,6 +23,8 @@
 		213A23CC21ABC5C70079B61B /* RGHomeServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23CB21ABC5C70079B61B /* RGHomeServiceProvider.swift */; };
 		213A23CE21ABC7E50079B61B /* RGNetworkHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23CD21ABC7E50079B61B /* RGNetworkHelpers.swift */; };
 		213A23D121ABD8640079B61B /* RGHomeServiceProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23D021ABD8640079B61B /* RGHomeServiceProviderTests.swift */; };
+		216CFB8B21ACDC9D0052193B /* RGFeedResponsParserMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFB8A21ACDC9D0052193B /* RGFeedResponsParserMock.swift */; };
+		216CFBAE21ACE6010052193B /* topRedditFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBAC21ACE4360052193B /* topRedditFeed.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +49,6 @@
 		211CA15821A52F9C0020E7A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		213A21C121A7DB650079B61B /* RGPostFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGPostFeed.swift; sourceTree = "<group>"; };
 		213A21C521A7DBD90079B61B /* RGPostFeedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGPostFeedTests.swift; sourceTree = "<group>"; };
-		213A21C921A7DD1B0079B61B /* topRedditFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = topRedditFeed.json; path = ../../../../TestJsons/topRedditFeed.json; sourceTree = "<group>"; };
 		213A23BE21AB97830079B61B /* RGRequestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGRequestTests.swift; sourceTree = "<group>"; };
 		213A23C021AB98330079B61B /* RGRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGRequest.swift; sourceTree = "<group>"; };
 		213A23C221AB9D540079B61B /* RGNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGNetworkClient.swift; sourceTree = "<group>"; };
@@ -58,6 +58,8 @@
 		213A23CB21ABC5C70079B61B /* RGHomeServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeServiceProvider.swift; sourceTree = "<group>"; };
 		213A23CD21ABC7E50079B61B /* RGNetworkHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGNetworkHelpers.swift; sourceTree = "<group>"; };
 		213A23D021ABD8640079B61B /* RGHomeServiceProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeServiceProviderTests.swift; sourceTree = "<group>"; };
+		216CFB8A21ACDC9D0052193B /* RGFeedResponsParserMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGFeedResponsParserMock.swift; sourceTree = "<group>"; };
+		216CFBAC21ACE4360052193B /* topRedditFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topRedditFeed.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,7 +166,7 @@
 		213A21C821A7DD020079B61B /* jsons */ = {
 			isa = PBXGroup;
 			children = (
-				213A21C921A7DD1B0079B61B /* topRedditFeed.json */,
+				216CFBAC21ACE4360052193B /* topRedditFeed.json */,
 			);
 			path = jsons;
 			sourceTree = "<group>";
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				213A23C921ABC3D40079B61B /* RGFeedResponseParser.swift */,
+				216CFB8A21ACDC9D0052193B /* RGFeedResponsParserMock.swift */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -286,7 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				213A21CA21A7DD1B0079B61B /* topRedditFeed.json in Resources */,
+				216CFBAE21ACE6010052193B /* topRedditFeed.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +302,7 @@
 			files = (
 				213A23C121AB98330079B61B /* RGRequest.swift in Sources */,
 				211CA14421A52F9C0020E7A4 /* RGHome.swift in Sources */,
+				216CFB8B21ACDC9D0052193B /* RGFeedResponsParserMock.swift in Sources */,
 				213A23C321AB9D540079B61B /* RGNetworkClient.swift in Sources */,
 				213A23C521AB9FC30079B61B /* RGSession.swift in Sources */,
 				213A23CC21ABC5C70079B61B /* RGHomeServiceProvider.swift in Sources */,
