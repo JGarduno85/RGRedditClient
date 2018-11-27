@@ -23,14 +23,17 @@ class RGFeedContainer: Decodable {
 
 class RGFeedElement: Decodable {
     var children: [RGFeedDataContainer]?
+    var after: String?
     
     enum FeedContainerKeys: String, CodingKey {
         case children
+        case after
     }
     
     required init(from decoder: Decoder) throws {
         let container               = try decoder.container(keyedBy: FeedContainerKeys.self)
         self.children               = try container.decodeIfPresent([RGFeedDataContainer].self, forKey: .children)
+        self.after                  = try container.decodeIfPresent(String.self, forKey: .after)
     }
 }
 

@@ -37,11 +37,13 @@ public class MockDataTask: DataTask {
 public class MockSession: RGSession {
     public var data: Data?
     public var error: Error?
+    public var request: URLRequest?
     init(data: Data?, error: Error?) {
         self.data = data
         self.error = error
     }
     public func dataTask(request: RGRequestable, completion: @escaping (Data?, URLResponse?, Error?) -> Void) -> DataTask {
+        self.request = request.urlRequestValue
         completion(data,nil,error)
         return MockDataTask()
     }

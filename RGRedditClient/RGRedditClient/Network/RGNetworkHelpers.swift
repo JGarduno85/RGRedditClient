@@ -9,7 +9,7 @@
 import Foundation
 
 struct RGNetworkHomeHelper {
-    static var homeBaseUrlString = "https://www.reddit.com/r/all/top/.json?limit="
+    static var homeBaseUrlString = "https://www.reddit.com/r/all/top/.json"
     static func homeBaseUrl() -> URL? {
         return URL(string: homeBaseUrlString)
     }

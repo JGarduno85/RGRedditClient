@@ -13,8 +13,8 @@ protocol RGHomeServiceProviding {
 }
 
 class RGHomeServiceProvider: RGHomeServiceProviding {
-    
     private init() {
+        self.paginator = RGHomeServicePaginator()
         if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] != nil {
             createMockClient()
             return
@@ -27,12 +27,20 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
     }
     
     fileprivate var client: RGNetworkClient?
+    fileprivate (set) var paginator: RGHomeServicePaginator?
+    
+    var homeServicePaginator: RGHomeServicePaginator? {
+        get {
+            return paginator
+        }
+    }
     
     func getHomeFeeds(completed:@escaping (RGFeedContainer?,Error?) -> Void) {
         assert((client != nil), "networkClient couldn't be created")
         guard let client = client else {
             return
         }
+        setClientQueryParameters()
         client.getResults(success: { (data, response) in
             var parseError: NSError? = nil
             var feeds: RGFeedContainer? = nil
@@ -44,6 +52,9 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
             let parser = RGResponseParser.createRGResponseParser()
             do {
                 feeds = try parser.retrievepostFeed(fromData: localData)
+                if let after = feeds?.data?.after {
+                    self.paginator?.pushNextPage(page: RGHomeServicePage(page: after))
+                }
             } catch {
                 parseError = NSError(domain: "parser error", code:10001, userInfo:nil)
             }
@@ -79,6 +90,60 @@ extension RGHomeServiceProvider {
             client = RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: mockSession)
         } catch {
             return
+        }
+    }
+    
+    fileprivate func setClientQueryParameters() {
+        if let nextPageQuery = paginator?.popLastPage() {
+            var queryDic = [nextPageQuery.homeQueryLimitKey: nextPageQuery.pageLimit]
+            if let page = nextPageQuery.page, !page.isEmpty {
+                queryDic[nextPageQuery.homeQueryPageKey] = page
+            }
+            client?.setClientQueryParameters(query: queryDic)
+        }
+    }
+}
+
+
+extension RGHomeServiceProvider {
+    fileprivate func createPaginator() {
+        self.paginator = RGHomeServicePaginator()
+    }
+    
+    struct RGHomeServicePage {
+        let homeQueryLimitKey     = "limit"
+        let homeQueryPageKey      = "after"
+        var page: String?
+        var pageLimit = "50"
+        
+        var pageQuery: String? {
+            guard let page = page, !page.isEmpty else {
+                return "\(homeQueryLimitKey)=\(pageLimit)"
+            }
+            return "\(homeQueryLimitKey)=\(pageLimit)&\(homeQueryPageKey)=\(page)"
+        }
+
+        init(page:String?) {
+            self.page = page
+        }
+    }
+    
+    struct RGHomeServicePaginator {
+        var pages:[RGHomeServicePage] = []
+        var lastPage: RGHomeServicePage? {
+            return pages.last
+        }
+        
+        init() {
+            pushNextPage(page: RGHomeServicePage(page: ""))
+        }
+        
+        mutating func pushNextPage(page: RGHomeServicePage) {
+            pages.append(page)
+        }
+        
+        mutating func popLastPage() -> RGHomeServicePage? {
+            return pages.popLast()
         }
     }
 }

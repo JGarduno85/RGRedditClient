@@ -13,6 +13,7 @@ typealias ClientFail = (_ response: URLResponse?,_ error: Error?) -> Void
 
 protocol RGNetworkFetchable {
     func getResults(success: @escaping ClientSuccess,fail: @escaping ClientFail)
+    func setClientQueryParameters(query: [String: String]?)
 }
 
 public final class RGNetworkClient: NSObject,RGNetworkFetchable {
@@ -21,6 +22,12 @@ public final class RGNetworkClient: NSObject,RGNetworkFetchable {
 
     private var dataTask: DataTask?
     private var request: RGRequest
+    
+    var baseUrl: String? {
+        get {
+            return self.request.urlRequestValue.url?.absoluteString
+        }
+    }
     // MARK: Initialization
     private init(baseURL: URL) {
         self.request = RGRequest.createRGRequest(withURL: baseURL, method: .GET)
@@ -46,5 +53,9 @@ public final class RGNetworkClient: NSObject,RGNetworkFetchable {
                 }
             }
         }.resume()
+    }
+    
+    func setClientQueryParameters(query: [String: String]?) {
+        self.request.queryParameters = query
     }
 }
