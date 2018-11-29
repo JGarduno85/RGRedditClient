@@ -16,10 +16,10 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
     private init() {
         self.paginator = RGHomeServicePaginator()
         if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] != nil {
-            createMockClient()
+            client = MockNetworkClient.createMockClient(jsonFile: "topRedditFeed", bundleId: "com.hpx.RGRedditClientTests")
             return
         }
-        createNetworkClient()
+        client = createNetworkClient()
     }
     
     static func createHomeServiceProvider() -> RGHomeServiceProvider {
@@ -70,27 +70,11 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
 }
 
 extension RGHomeServiceProvider {
-    fileprivate func createNetworkClient() {
+    fileprivate func createNetworkClient() -> RGNetworkClient?  {
         guard let url = RGNetworkHomeHelper.homeBaseUrl() else {
-            return
+            return nil
         }
-        client = RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: nil)
-    }
-    
-    fileprivate func createMockClient() {
-        guard let url = RGNetworkHomeHelper.homeBaseUrl() else {
-            return
-        }
-        guard let bundle = Bundle(identifier: "com.hpx.RGRedditClientTests") else {
-            return
-        }
-        do {
-            let data = try RGDataMocker.createRGDataMocker().retrievepostFeed(fromJsonFile: "topRedditFeed", bundle: bundle)
-            let mockSession = MockSession(data: data, error: nil)
-            client = RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: mockSession)
-        } catch {
-            return
-        }
+        return RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: nil)
     }
     
     fileprivate func setClientQueryParameters() {
@@ -144,6 +128,24 @@ extension RGHomeServiceProvider {
         
         mutating func popLastPage() -> RGHomeServicePage? {
             return pages.popLast()
+        }
+    }
+}
+
+struct MockNetworkClient {
+    static func createMockClient(jsonFile: String, bundleId: String) -> RGNetworkClient? {
+        guard let url = RGNetworkHomeHelper.homeBaseUrl() else {
+            return nil
+        }
+        guard let bundle = Bundle(identifier: bundleId) else {
+            return nil
+        }
+        do {
+            let data = try RGDataMocker.createRGDataMocker().retrievepostFeed(fromJsonFile: jsonFile, bundle: bundle)
+            let mockSession = MockSession(data: data, error: nil)
+            return RGNetworkClient.createRGNetworkClient(withBaseUrl: url, andSession: mockSession)
+        } catch {
+            return nil
         }
     }
 }
