@@ -11,9 +11,9 @@ import UIKit
 
 class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate {
 
-    var homeSectionDirector: RGHomeSectionDirecting
+    var homeSectionDirector: RGHomeElementDirecting
     override init() {
-        homeSectionDirector = RGHomeSectionDirector()
+        homeSectionDirector = RGHomeElementDirector()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,10 +38,15 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let section = homeSectionDirector.homeSections.first else {
+        guard let element = homeSectionDirector.homeSections.first else {
             return UITableView.automaticDimension
         }
-        if section is RGErrorSectionPresenter {
+        if element is RGLoaderSectionPresenter {
+            if homeSectionDirector.homeSections.count <= 1 {
+                return tableView.bounds.size.height
+            }
+        }
+        if element is RGErrorSectionPresenter {
             return tableView.bounds.size.height
         }
         return UITableView.automaticDimension

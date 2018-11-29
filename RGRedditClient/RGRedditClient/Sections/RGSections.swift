@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol RGSection {
+protocol RGElement {
     var sectionId: String { get }
     var presenter: UINib  { get }
 }

@@ -25,13 +25,16 @@
 		213A23D121ABD8640079B61B /* RGHomeServiceProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213A23D021ABD8640079B61B /* RGHomeServiceProviderTests.swift */; };
 		216CFB8B21ACDC9D0052193B /* RGFeedResponsParserMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFB8A21ACDC9D0052193B /* RGFeedResponsParserMock.swift */; };
 		216CFBAE21ACE6010052193B /* topRedditFeed.json in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBAC21ACE4360052193B /* topRedditFeed.json */; };
-		216CFBB421AD21EC0052193B /* RGHomeSectionDataPovider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBB321AD21EC0052193B /* RGHomeSectionDataPovider.swift */; };
+		216CFBB421AD21EC0052193B /* RGHomeElementDataPovider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBB321AD21EC0052193B /* RGHomeElementDataPovider.swift */; };
 		216CFBB721AD22D80052193B /* RGErrorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBB521AD22D80052193B /* RGErrorTableViewCell.swift */; };
 		216CFBB821AD22D80052193B /* RGErrorTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBB621AD22D80052193B /* RGErrorTableViewCell.xib */; };
 		216CFBBA21AD24A10052193B /* RGSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBB921AD24A10052193B /* RGSections.swift */; };
 		216CFBBC21AE66AF0052193B /* RGErrorSectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBBB21AE66AF0052193B /* RGErrorSectionPresenter.swift */; };
 		216CFBBE21AE76E40052193B /* RGHomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBBD21AE76E40052193B /* RGHomeTests.swift */; };
-		216CFBC021AE7DBE0052193B /* RGHomeSectionDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBBF21AE7DBE0052193B /* RGHomeSectionDirector.swift */; };
+		216CFBC021AE7DBE0052193B /* RGHomeElementDirector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBBF21AE7DBE0052193B /* RGHomeElementDirector.swift */; };
+		216CFBC821AFC5150052193B /* RGLoaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBC621AFC5150052193B /* RGLoaderTableViewCell.swift */; };
+		216CFBC921AFC5150052193B /* RGLoaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBC721AFC5150052193B /* RGLoaderTableViewCell.xib */; };
+		216CFBCB21AFC5770052193B /* RGLoaderSectionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBCA21AFC5770052193B /* RGLoaderSectionPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,13 +70,16 @@
 		213A23D021ABD8640079B61B /* RGHomeServiceProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeServiceProviderTests.swift; sourceTree = "<group>"; };
 		216CFB8A21ACDC9D0052193B /* RGFeedResponsParserMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGFeedResponsParserMock.swift; sourceTree = "<group>"; };
 		216CFBAC21ACE4360052193B /* topRedditFeed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = topRedditFeed.json; sourceTree = "<group>"; };
-		216CFBB321AD21EC0052193B /* RGHomeSectionDataPovider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeSectionDataPovider.swift; sourceTree = "<group>"; };
+		216CFBB321AD21EC0052193B /* RGHomeElementDataPovider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeElementDataPovider.swift; sourceTree = "<group>"; };
 		216CFBB521AD22D80052193B /* RGErrorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGErrorTableViewCell.swift; sourceTree = "<group>"; };
 		216CFBB621AD22D80052193B /* RGErrorTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RGErrorTableViewCell.xib; sourceTree = "<group>"; };
 		216CFBB921AD24A10052193B /* RGSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGSections.swift; sourceTree = "<group>"; };
 		216CFBBB21AE66AF0052193B /* RGErrorSectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGErrorSectionPresenter.swift; sourceTree = "<group>"; };
 		216CFBBD21AE76E40052193B /* RGHomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeTests.swift; sourceTree = "<group>"; };
-		216CFBBF21AE7DBE0052193B /* RGHomeSectionDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeSectionDirector.swift; sourceTree = "<group>"; };
+		216CFBBF21AE7DBE0052193B /* RGHomeElementDirector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGHomeElementDirector.swift; sourceTree = "<group>"; };
+		216CFBC621AFC5150052193B /* RGLoaderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGLoaderTableViewCell.swift; sourceTree = "<group>"; };
+		216CFBC721AFC5150052193B /* RGLoaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RGLoaderTableViewCell.xib; sourceTree = "<group>"; };
+		216CFBCA21AFC5770052193B /* RGLoaderSectionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGLoaderSectionPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,13 +219,6 @@
 			path = HomeTests;
 			sourceTree = "<group>";
 		};
-		216CFBAF21AD20AE0052193B /* Loader */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Loader;
-			sourceTree = "<group>";
-		};
 		216CFBB021AD20C90052193B /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,8 +232,8 @@
 		216CFBB121AD20DE0052193B /* Sections */ = {
 			isa = PBXGroup;
 			children = (
+				216CFBC521AFC4F40052193B /* Loader */,
 				211CA16221A5306F0020E7A4 /* Home */,
-				216CFBAF21AD20AE0052193B /* Loader */,
 				216CFBB021AD20C90052193B /* Error */,
 				216CFBB921AD24A10052193B /* RGSections.swift */,
 			);
@@ -244,10 +243,20 @@
 		216CFBB221AD21C40052193B /* HomeDataProvider */ = {
 			isa = PBXGroup;
 			children = (
-				216CFBB321AD21EC0052193B /* RGHomeSectionDataPovider.swift */,
-				216CFBBF21AE7DBE0052193B /* RGHomeSectionDirector.swift */,
+				216CFBB321AD21EC0052193B /* RGHomeElementDataPovider.swift */,
+				216CFBBF21AE7DBE0052193B /* RGHomeElementDirector.swift */,
 			);
 			path = HomeDataProvider;
+			sourceTree = "<group>";
+		};
+		216CFBC521AFC4F40052193B /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				216CFBC621AFC5150052193B /* RGLoaderTableViewCell.swift */,
+				216CFBC721AFC5150052193B /* RGLoaderTableViewCell.xib */,
+				216CFBCA21AFC5770052193B /* RGLoaderSectionPresenter.swift */,
+			);
+			path = Loader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -334,6 +343,7 @@
 			files = (
 				211CA14C21A52F9C0020E7A4 /* LaunchScreen.storyboard in Resources */,
 				211CA14921A52F9C0020E7A4 /* Assets.xcassets in Resources */,
+				216CFBC921AFC5150052193B /* RGLoaderTableViewCell.xib in Resources */,
 				211CA14721A52F9C0020E7A4 /* Main.storyboard in Resources */,
 				216CFBB821AD22D80052193B /* RGErrorTableViewCell.xib in Resources */,
 			);
@@ -363,10 +373,12 @@
 				216CFBBA21AD24A10052193B /* RGSections.swift in Sources */,
 				213A23CE21ABC7E50079B61B /* RGNetworkHelpers.swift in Sources */,
 				213A23CA21ABC3D40079B61B /* RGFeedResponseParser.swift in Sources */,
-				216CFBB421AD21EC0052193B /* RGHomeSectionDataPovider.swift in Sources */,
+				216CFBC821AFC5150052193B /* RGLoaderTableViewCell.swift in Sources */,
+				216CFBB421AD21EC0052193B /* RGHomeElementDataPovider.swift in Sources */,
+				216CFBCB21AFC5770052193B /* RGLoaderSectionPresenter.swift in Sources */,
 				211CA14221A52F9C0020E7A4 /* AppDelegate.swift in Sources */,
 				213A21C221A7DB650079B61B /* RGPostFeed.swift in Sources */,
-				216CFBC021AE7DBE0052193B /* RGHomeSectionDirector.swift in Sources */,
+				216CFBC021AE7DBE0052193B /* RGHomeElementDirector.swift in Sources */,
 				216CFBBC21AE66AF0052193B /* RGErrorSectionPresenter.swift in Sources */,
 				216CFBB721AD22D80052193B /* RGErrorTableViewCell.swift in Sources */,
 			);

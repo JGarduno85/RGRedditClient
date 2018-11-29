@@ -18,19 +18,19 @@ struct RGBasicAlertFactory {
     }
 }
 
-protocol RGHomeSectionDirecting {
-    var homeSections: [RGSection] { get }
-    func insertSection(section: RGSection)
-    func removeSection(section: RGSection)
+protocol RGHomeElementDirecting {
+    var homeSections: [RGElement] { get }
+    func insertSection(section: RGElement)
+    func removeSection(section: RGElement)
 }
 
-class RGHomeSectionDirector: RGHomeSectionDirecting {
-    var homeSections:[RGSection] = []
-    func insertSection(section: RGSection) {
+class RGHomeElementDirector: RGHomeElementDirecting {
+    var homeSections:[RGElement] = []
+    func insertSection(section: RGElement) {
         homeSections.append(section)
     }
     
-    func removeSection(section: RGSection) {
+    func removeSection(section: RGElement) {
         let sectionIndex = homeSections.firstIndex(where: { (localSection) -> Bool in
            return section.sectionId == localSection.sectionId
         })
