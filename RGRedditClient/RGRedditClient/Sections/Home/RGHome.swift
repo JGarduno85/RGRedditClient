@@ -13,9 +13,9 @@ class RGHome: UIViewController {
     @IBOutlet weak var homeSectionTableView: UITableView!
     
     var homeServiceProvider: RGHomeServiceProviding!
-    var errorSection: RGElement!
     var homeSectionDataProvider: (UITableViewDataSource & UITableViewDelegate)!
-    var loaderSection: RGElement!
+    var errorSection: RGErrorPresenter!
+    var loaderSection: RGLoaderPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +25,12 @@ class RGHome: UIViewController {
     }
     
     fileprivate func commonInit() {
+        errorSection = RGErrorPresenter()
+        loaderSection = RGLoaderPresenter()
         homeServiceProvider = RGHomeServiceProvider.createHomeServiceProvider()
-        errorSection = RGErrorSectionPresenter(nib: UINib(nibName: "RGErrorTableViewCell", bundle: nil))
-        loaderSection = RGLoaderSectionPresenter(nib: UINib(nibName: "RGLoaderTableViewCell", bundle: nil))
         homeSectionDataProvider = RGHomeSectionDataProvider()
-        homeSectionTableView.register(errorSection.presenter, forCellReuseIdentifier: errorSection.sectionId)
-        homeSectionTableView.register(loaderSection.presenter, forCellReuseIdentifier: loaderSection.sectionId)
+        homeSectionTableView.register(UINib(nibName: "RGErrorTableViewCell", bundle: nil), forCellReuseIdentifier: errorSection.id)
+        homeSectionTableView.register(UINib(nibName: "RGLoaderTableViewCell", bundle: nil), forCellReuseIdentifier: loaderSection.id)
         homeSectionTableView.dataSource = homeSectionDataProvider
         homeSectionTableView.delegate = homeSectionDataProvider
     }
@@ -76,14 +76,14 @@ extension RGHome {
             return
         }
         dataProvider.homeSectionDirector.insertSection(section: home.loaderSection)
-        homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeSectionDirector.homeSections.count - 1, section: 0)], with: .fade)
+        homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
     }
     
     fileprivate func removeLoader(home: RGHome) {
         guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        dataProvider.homeSectionDirector.removeSection(section: loaderSection)
+        dataProvider.homeSectionDirector.removeSection(section: home.loaderSection)
         let numberRows = homeSectionTableView.numberOfRows(inSection: 0)
         home.homeSectionTableView.deleteRows(at: [IndexPath(row: numberRows - 1, section: 0)], with: .fade)
     }
@@ -92,7 +92,7 @@ extension RGHome {
         guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        if dataProvider.homeSectionDirector.homeSections.count <= 0 {
+        if dataProvider.homeSectionDirector.sectionsCount <= 0 {
             dataProvider.homeSectionDirector.insertSection(section: home.errorSection)
             home.homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         } else {

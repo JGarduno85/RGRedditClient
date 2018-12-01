@@ -21,15 +21,18 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return homeSectionDirector.homeSections.count
+        return homeSectionDirector.sectionsCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard !homeSectionDirector.homeSections.isEmpty, indexPath.row < homeSectionDirector.homeSections.count else {
+        guard !homeSectionDirector.sectionsAreEmpty, indexPath.row < homeSectionDirector.sectionsCount else {
             return UITableViewCell()
         }
-        let section = homeSectionDirector.homeSections[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: section.sectionId, for: indexPath)
+        guard let section = homeSectionDirector.elementSection(at: indexPath.row), let sectionId = section.sectionId else {
+            return UITableViewCell()
+        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: sectionId, for: indexPath)
         return cell
     }
     
@@ -38,15 +41,15 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard let element = homeSectionDirector.homeSections.first else {
+        guard let element = homeSectionDirector.elementSection(at: indexPath.row) else {
             return UITableView.automaticDimension
         }
-        if element is RGLoaderSectionPresenter {
-            if homeSectionDirector.homeSections.count <= 1 {
+        if element.section is RGLoaderPresenter {
+            if homeSectionDirector.sectionsCount <= 1 {
                 return tableView.bounds.size.height
             }
         }
-        if element is RGErrorSectionPresenter {
+        if element.section is RGErrorPresenter {
             return tableView.bounds.size.height
         }
         return UITableView.automaticDimension
