@@ -11,29 +11,121 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="RGFeedTableViewCell" customModule="RGRedditClient" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="207" id="KGk-i7-Jjw" customClass="RGFeedTableViewCell" customModule="RGRedditClient" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="484" height="207"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="484" height="206.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Textttttttt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ty-AD-6M6">
-                        <rect key="frame" x="16" y="11" width="288" height="22"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="c8b-uR-uEk">
+                        <rect key="frame" x="16" y="16" width="452" height="174.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ee1-kA-RwS">
+                                <rect key="frame" x="0.0" y="0.0" width="452" height="61"/>
+                                <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley </string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="6ke-QV-MmH">
+                                <rect key="frame" x="0.0" y="82.5" width="452" height="92"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-Hn-m9b">
+                                        <rect key="frame" x="0.0" y="0.0" width="352" height="92"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kPP-uk-qOW">
+                                                <rect key="frame" x="0.0" y="0.0" width="352" height="24"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Author" translatesAutoresizingMaskIntoConstraints="NO" id="d2T-qK-otC" userLabel="author">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="kFb-qY-5mJ"/>
+                                                            <constraint firstAttribute="width" constant="24" id="wRq-hu-xMX"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaM-Ku-skH">
+                                                        <rect key="frame" x="32" y="0.0" width="320" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Z4-xa-qDq">
+                                                <rect key="frame" x="0.0" y="34" width="352" height="24"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="Y57-cV-bxB" userLabel="Time">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="obb-aj-Hdb"/>
+                                                            <constraint firstAttribute="width" constant="24" id="sb9-eh-09l"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0j-oT-13D">
+                                                        <rect key="frame" x="32" y="0.0" width="320" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IzX-hx-BFu">
+                                                <rect key="frame" x="0.0" y="68" width="352" height="24"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="1DL-Jn-1QA" userLabel="comments">
+                                                        <rect key="frame" x="0.0" y="0.0" width="24" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="24" id="IP3-Fr-xhV"/>
+                                                            <constraint firstAttribute="height" constant="24" id="SPz-bP-3xN"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-0r-W43">
+                                                        <rect key="frame" x="32" y="0.0" width="320" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DummyThumbnail" translatesAutoresizingMaskIntoConstraints="NO" id="gA0-nS-S1I">
+                                        <rect key="frame" x="360" y="0.0" width="92" height="92"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="gA0-nS-S1I" secondAttribute="height" multiplier="1:1" id="BXg-IH-TDE"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gA0-nS-S1I" firstAttribute="bottom" secondItem="Pc4-Hn-m9b" secondAttribute="bottom" id="2j9-WF-VsM"/>
+                                    <constraint firstAttribute="trailing" secondItem="gA0-nS-S1I" secondAttribute="trailing" id="GfR-5g-bPn"/>
+                                    <constraint firstAttribute="bottom" secondItem="gA0-nS-S1I" secondAttribute="bottom" id="kHA-pw-yzM"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ee1-kA-RwS" secondAttribute="trailing" id="9My-Zu-ZGx"/>
+                            <constraint firstItem="Ee1-kA-RwS" firstAttribute="leading" secondItem="c8b-uR-uEk" secondAttribute="leading" id="AFH-pL-1UU"/>
+                            <constraint firstItem="Ee1-kA-RwS" firstAttribute="top" secondItem="c8b-uR-uEk" secondAttribute="top" id="ZAs-G8-6Y9"/>
+                        </constraints>
+                    </stackView>
                 </subviews>
-                <color key="backgroundColor" red="1" green="0.31993517640000002" blue="0.2363689064" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
-                    <constraint firstItem="7ty-AD-6M6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Fpm-G8-Ohw"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="7ty-AD-6M6" secondAttribute="bottom" id="RLK-jq-FLk"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="7ty-AD-6M6" secondAttribute="trailing" id="Rhh-tc-3ij"/>
-                    <constraint firstItem="7ty-AD-6M6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="uMd-9b-z2a"/>
+                    <constraint firstItem="c8b-uR-uEk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="0eD-xg-8fQ"/>
+                    <constraint firstAttribute="bottom" secondItem="c8b-uR-uEk" secondAttribute="bottom" constant="16" id="3DM-Vt-tza"/>
+                    <constraint firstItem="c8b-uR-uEk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="McJ-LQ-TpF"/>
+                    <constraint firstAttribute="trailing" secondItem="c8b-uR-uEk" secondAttribute="trailing" constant="16" id="tv1-NH-suM"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="113.59999999999999" y="-18.440779610194905"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Author" width="128" height="128"/>
+        <image name="Comments" width="128" height="128"/>
+        <image name="DummyThumbnail" width="128" height="128"/>
+        <image name="Time" width="128" height="128"/>
+    </resources>
 </document>
