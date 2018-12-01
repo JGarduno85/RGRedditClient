@@ -28,10 +28,10 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
         guard !homeSectionDirector.sectionsAreEmpty, indexPath.row < homeSectionDirector.sectionsCount else {
             return UITableViewCell()
         }
-        guard let section = homeSectionDirector.elementSection(at: indexPath.row), let sectionId = section.sectionId else {
+        guard let section = homeSectionDirector.elementSection(at: indexPath.row) else {
             return UITableViewCell()
         }
-        
+        let sectionId = section.sectionId ?? ""
         let cell = tableView.dequeueReusableCell(withIdentifier: sectionId, for: indexPath)
         return cell
     }

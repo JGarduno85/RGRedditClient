@@ -10,6 +10,6 @@ import Foundation
 
 struct RGFeedPresenter {
     static var id: String {
-        return "RGLoader"
+        return "RGFeed"
     }
 }

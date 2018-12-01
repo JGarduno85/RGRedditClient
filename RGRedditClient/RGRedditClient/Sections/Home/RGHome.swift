@@ -31,6 +31,7 @@ class RGHome: UIViewController {
         homeSectionDataProvider = RGHomeSectionDataProvider()
         homeSectionTableView.register(UINib(nibName: "RGErrorTableViewCell", bundle: nil), forCellReuseIdentifier: errorSection.id)
         homeSectionTableView.register(UINib(nibName: "RGLoaderTableViewCell", bundle: nil), forCellReuseIdentifier: loaderSection.id)
+        homeSectionTableView.register(UINib(nibName: "RGFeedTableViewCell", bundle: nil), forCellReuseIdentifier:RGFeedPresenter.id)
         homeSectionTableView.dataSource = homeSectionDataProvider
         homeSectionTableView.delegate = homeSectionDataProvider
     }
@@ -40,10 +41,7 @@ class RGHome: UIViewController {
 extension RGHome {
     func requestFeeds(success: ((RGFeedContainer?) -> Void)?, fail:((Error?) -> Void)?){
         showLoader(home: self)
-        homeServiceProvider.getHomeFeeds { [weak self] (feeds, error) in
-            guard let strongSelf = self else {
-                return
-            }
+        homeServiceProvider.getHomeFeeds { (feeds, error) in
             guard error == nil else {
                 if let fail = fail {
                     fail(error)
@@ -57,14 +55,42 @@ extension RGHome {
                 return
             }
             if let success = success {
-                success(feeds)
+               success(feeds)
             }
-            strongSelf.removeLoader(home: strongSelf)
         }
     }
     
     fileprivate func loadFeeds(feeds: RGFeedContainer?) {
-        
+        guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
+            return
+        }
+        guard let feedsData = feeds?.data?.children else {
+            return
+        }
+        removeLoader()
+        dataProvider.homeSectionDirector.insertSections(sections: feedsData)
+        let indexPaths = indexPath(for: feedsData)
+        homeSectionTableView.beginUpdates()
+        removeLoaderRow()
+        insertFeedsRows(using: indexPaths)
+        homeSectionTableView.endUpdates()
+    }
+    
+    fileprivate func insertFeedsRows(using indexPaths: [IndexPath]) {
+        homeSectionTableView.insertRows(at: indexPaths, with: .automatic)
+    }
+    
+    fileprivate func indexPath(for sections:[Any]) -> [IndexPath] {
+        var rowIndex = homeSectionTableView.numberOfRows(inSection: 0) - 1
+        var index = 0
+        let count = sections.count
+        var indexPaths: [IndexPath] = []
+        while index < count {
+            indexPaths.append(IndexPath(row: rowIndex, section: 0))
+            index += 1
+            rowIndex += 1
+        }
+        return indexPaths
     }
     
     fileprivate func loadError(error: Error?) {
@@ -79,13 +105,16 @@ extension RGHome {
         homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
     }
     
-    fileprivate func removeLoader(home: RGHome) {
-        guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
+    fileprivate func removeLoader() {
+        guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        dataProvider.homeSectionDirector.removeSection(section: home.loaderSection)
+        dataProvider.homeSectionDirector.removeSection(section: loaderSection)
+    }
+    
+    fileprivate func removeLoaderRow() {
         let numberRows = homeSectionTableView.numberOfRows(inSection: 0)
-        home.homeSectionTableView.deleteRows(at: [IndexPath(row: numberRows - 1, section: 0)], with: .fade)
+        homeSectionTableView.deleteRows(at: [IndexPath(row: numberRows - 1, section: 0)], with: .fade)
     }
     
     fileprivate func showErrorMessage(home: RGHome) {

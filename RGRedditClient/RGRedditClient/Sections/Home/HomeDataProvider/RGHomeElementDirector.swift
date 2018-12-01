@@ -22,6 +22,7 @@ protocol RGHomeElementDirecting {
     var sectionsCount: Int { get }
     var sectionsAreEmpty: Bool { get }
     func insertSection(section: Any)
+    func insertSections(sections: [Any])
     func removeSection(section: Any)
     func elementSection(at index: Int) -> (section: Any,sectionId: String?)?
 }
@@ -43,6 +44,11 @@ class RGHomeElementDirector: RGHomeElementDirecting {
     
     var sectionsAreEmpty: Bool {
         return homeSections.isEmpty
+    }
+    
+    func insertSections(sections: [Any]) {
+        homeSections.append(contentsOf: sections)
+        register(section: sections.first!)
     }
     
     func insertSection(section: Any) {
@@ -83,7 +89,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         return (section, sectionId)
     }
     
-    func getId(for section: Any) -> String? {
+    fileprivate func getId(for section: Any) -> String? {
         return retrieveId(for: section)
     }
     
@@ -94,7 +100,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         if let _ = section as? RGLoaderPresenter, sectionsRegistered.keys.contains(.loader) {
             return sectionsRegistered[.loader]
         }
-        if let _ = section as? RGFeed, sectionsRegistered.keys.contains(.feed) {
+        if let _ = section as? RGFeedDataContainer, sectionsRegistered.keys.contains(.feed) {
             return sectionsRegistered[.feed]
         }
         return nil
@@ -107,7 +113,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         if let loaderSection = section as? RGLoaderPresenter, !sectionsRegistered.keys.contains(.loader) {
             sectionsRegistered[.loader] = loaderSection.id
         }
-        if let _ = section as? RGFeed, !sectionsRegistered.keys.contains(.feed) {
+        if let _ = section as? RGFeedDataContainer, !sectionsRegistered.keys.contains(.feed) {
             sectionsRegistered[.feed] = RGFeedPresenter.id
         }
     }
@@ -119,7 +125,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         if let _ = section as? RGLoaderPresenter, !sectionsRegistered.keys.contains(.loader) {
             sectionsRegistered.removeValue(forKey: .loader)
         }
-        if let _ = section as? RGFeed, !sectionsRegistered.keys.contains(.feed) {
+        if let _ = section as? RGFeedDataContainer, !sectionsRegistered.keys.contains(.feed) {
             let isThereAnyRGFeed = homeSections.contains { (section) -> Bool in
                 if section is RGFeed {
                     return true

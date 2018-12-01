@@ -35,6 +35,8 @@
 		216CFBE021B24FA90052193B /* RGLoaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBDF21B24FA90052193B /* RGLoaderPresenter.swift */; };
 		216CFBE221B24FDE0052193B /* RGErrorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE121B24FDE0052193B /* RGErrorPresenter.swift */; };
 		216CFBE421B25FBE0052193B /* RGFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */; };
+		216CFBE721B2623A0052193B /* RGFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */; };
+		216CFBE821B2623A0052193B /* RGFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		216CFBDF21B24FA90052193B /* RGLoaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGLoaderPresenter.swift; sourceTree = "<group>"; };
 		216CFBE121B24FDE0052193B /* RGErrorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGErrorPresenter.swift; sourceTree = "<group>"; };
 		216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGFeedPresenter.swift; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedPresenter.swift; sourceTree = SOURCE_ROOT; };
+		216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGFeedTableViewCell.swift; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedTableViewCell.swift; sourceTree = SOURCE_ROOT; };
+		216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RGFeedTableViewCell.xib; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */,
+				216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */,
+				216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */,
 			);
 			path = HomePresenters;
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 			files = (
 				211CA14C21A52F9C0020E7A4 /* LaunchScreen.storyboard in Resources */,
 				211CA14921A52F9C0020E7A4 /* Assets.xcassets in Resources */,
+				216CFBE821B2623A0052193B /* RGFeedTableViewCell.xib in Resources */,
 				216CFBC921AFC5150052193B /* RGLoaderTableViewCell.xib in Resources */,
 				211CA14721A52F9C0020E7A4 /* Main.storyboard in Resources */,
 				216CFBB821AD22D80052193B /* RGErrorTableViewCell.xib in Resources */,
@@ -374,6 +381,7 @@
 			files = (
 				213A23C121AB98330079B61B /* RGRequest.swift in Sources */,
 				211CA14421A52F9C0020E7A4 /* RGHome.swift in Sources */,
+				216CFBE721B2623A0052193B /* RGFeedTableViewCell.swift in Sources */,
 				216CFB8B21ACDC9D0052193B /* RGFeedResponsParserMock.swift in Sources */,
 				216CFBE021B24FA90052193B /* RGLoaderPresenter.swift in Sources */,
 				213A23C321AB9D540079B61B /* RGNetworkClient.swift in Sources */,
