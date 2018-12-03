@@ -47,12 +47,12 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     fileprivate func getTimeStr(from interval: TimeInterval) -> String {
-        let time = interval / 3600
+        let time = Int(floor(interval / 3600))
         return "\(time) hours ago"
     }
     
     fileprivate func comments(fromNumber number: Int) -> String {
-        return "\(number)Commnets"
+        return "\(number)Comments"
     }
     
 }
