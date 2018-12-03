@@ -48,6 +48,8 @@ class RGFeedDataContainer: Decodable {
         let container                   = try decoder.container(keyedBy: FeedContainerKeys.self)
         self.data                       = try container.decodeIfPresent(RGFeed.self, forKey: .data)
     }
+    
+    init() { }
 }
 
 class RGFeed: Decodable {
@@ -69,4 +71,6 @@ class RGFeed: Decodable {
         self.thumbnail              = try container.decodeIfPresent(String.self, forKey: .thumbnail)
         self.num_comments           = try container.decodeIfPresent(Int.self, forKey: .num_comments)
     }
+    
+    init() {}
 }

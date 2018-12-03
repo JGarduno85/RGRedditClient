@@ -37,6 +37,9 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         case feed
     }
     
+    var sectionsRegisteredCount: Int{
+        return sectionsRegistered.count
+    }
     
     var sectionsCount: Int {
         return homeSections.count
@@ -125,9 +128,9 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         if let _ = section as? RGLoaderPresenter, !sectionsRegistered.keys.contains(.loader) {
             sectionsRegistered.removeValue(forKey: .loader)
         }
-        if let _ = section as? RGFeedDataContainer, !sectionsRegistered.keys.contains(.feed) {
+        if let _ = section as? RGFeedDataContainer, sectionsRegistered.keys.contains(.feed) {
             let isThereAnyRGFeed = homeSections.contains { (section) -> Bool in
-                if section is RGFeed {
+                if let _ = section as? RGFeedDataContainer {
                     return true
                 }
                 return false

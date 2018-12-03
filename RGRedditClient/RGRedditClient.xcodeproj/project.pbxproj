@@ -37,6 +37,8 @@
 		216CFBE421B25FBE0052193B /* RGFeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */; };
 		216CFBE721B2623A0052193B /* RGFeedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */; };
 		216CFBE821B2623A0052193B /* RGFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */; };
+		216CFBEA21B4E79D0052193B /* RGHomeElementDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE921B4E79D0052193B /* RGHomeElementDataProviderTests.swift */; };
+		216CFBEC21B4E7B30052193B /* RGHomeElementDirectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBEB21B4E7B30052193B /* RGHomeElementDirectorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +86,8 @@
 		216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGFeedPresenter.swift; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedPresenter.swift; sourceTree = SOURCE_ROOT; };
 		216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGFeedTableViewCell.swift; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RGFeedTableViewCell.xib; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		216CFBE921B4E79D0052193B /* RGHomeElementDataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGHomeElementDataProviderTests.swift; path = HomeDataProvider/RGHomeElementDataProviderTests.swift; sourceTree = "<group>"; };
+		216CFBEB21B4E7B30052193B /* RGHomeElementDirectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGHomeElementDirectorTests.swift; path = HomeDataProvider/RGHomeElementDirectorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +224,8 @@
 			children = (
 				213A23D021ABD8640079B61B /* RGHomeServiceProviderTests.swift */,
 				216CFBBD21AE76E40052193B /* RGHomeTests.swift */,
+				216CFBE921B4E79D0052193B /* RGHomeElementDataProviderTests.swift */,
+				216CFBEB21B4E7B30052193B /* RGHomeElementDirectorTests.swift */,
 			);
 			path = HomeTests;
 			sourceTree = "<group>";
@@ -406,9 +412,11 @@
 			files = (
 				213A23D121ABD8640079B61B /* RGHomeServiceProviderTests.swift in Sources */,
 				213A23BF21AB97830079B61B /* RGRequestTests.swift in Sources */,
+				216CFBEC21B4E7B30052193B /* RGHomeElementDirectorTests.swift in Sources */,
 				213A21C621A7DBD90079B61B /* RGPostFeedTests.swift in Sources */,
 				216CFBBE21AE76E40052193B /* RGHomeTests.swift in Sources */,
 				213A23C721ABB7F40079B61B /* RGNetworkClientTests.swift in Sources */,
+				216CFBEA21B4E79D0052193B /* RGHomeElementDataProviderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
