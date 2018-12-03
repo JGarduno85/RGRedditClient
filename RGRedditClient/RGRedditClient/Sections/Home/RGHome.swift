@@ -21,7 +21,9 @@ class RGHome: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         commonInit()
-        requestFeeds(success: loadFeeds, fail: loadError)
+        if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] == nil {
+            requestFeeds(success: loadFeeds, fail: loadError)
+        }
     }
     
     fileprivate func commonInit() {
