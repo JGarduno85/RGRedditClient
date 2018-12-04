@@ -41,7 +41,7 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
             return
         }
         setClientQueryParameters()
-        client.getResults(success: { (data, response) in
+        client.getResults(success: { [weak self] (data, response) in
             var parseError: NSError? = nil
             var feeds: RGFeedContainer? = nil
             guard let localData = data else {
@@ -53,7 +53,7 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
             do {
                 feeds = try parser.retrievepostFeed(fromData: localData)
                 if let after = feeds?.data?.after {
-                    self.paginator?.pushNextPage(page: RGHomeServicePage(page: after))
+                    self?.paginator?.pushNextPage(page: RGHomeServicePage(page: after))
                 }
             } catch {
                 parseError = NSError(domain: "parser error", code:10001, userInfo:nil)

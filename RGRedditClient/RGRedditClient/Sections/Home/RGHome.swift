@@ -8,15 +8,13 @@
 
 import UIKit
 
-class RGHome: UIViewController {
-
+class RGHome: UIViewController, RGHomeElementDirectorDelegate {
     @IBOutlet weak var homeSectionTableView: UITableView!
     
     var homeServiceProvider: RGHomeServiceProviding!
-    var homeSectionDataProvider: (UITableViewDataSource & UITableViewDelegate)!
+    var homeSectionDataProvider: (UITableViewDataSource & UITableViewDelegate & UITableViewDataSourcePrefetching)!
     var errorSection: RGErrorPresenter!
     var loaderSection: RGLoaderPresenter!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -30,19 +28,24 @@ class RGHome: UIViewController {
         errorSection = RGErrorPresenter()
         loaderSection = RGLoaderPresenter()
         homeServiceProvider = RGHomeServiceProvider.createHomeServiceProvider()
-        homeSectionDataProvider = RGHomeSectionDataProvider()
+        homeSectionDataProvider = RGHomeSectionDataProvider(homeSectionDirectorDelegate: self)
         homeSectionTableView.register(UINib(nibName: "RGErrorTableViewCell", bundle: nil), forCellReuseIdentifier: errorSection.id)
         homeSectionTableView.register(UINib(nibName: "RGLoaderTableViewCell", bundle: nil), forCellReuseIdentifier: loaderSection.id)
         homeSectionTableView.register(UINib(nibName: "RGFeedTableViewCell", bundle: nil), forCellReuseIdentifier:RGFeedPresenter.id)
         homeSectionTableView.dataSource = homeSectionDataProvider
         homeSectionTableView.delegate = homeSectionDataProvider
+        homeSectionTableView.prefetchDataSource = homeSectionDataProvider
     }
 }
 
 
 extension RGHome {
+    func loadNextBatch(delegate: UITableViewDataSource) {
+       requestFeeds(success: loadFeeds, fail: loadError)
+    }
+    
     func requestFeeds(success: ((RGFeedContainer?) -> Void)?, fail:((Error?) -> Void)?){
-        showLoader(home: self)
+       // showLoader(home: self)
         homeServiceProvider.getHomeFeeds { (feeds, error) in
             guard error == nil else {
                 if let fail = fail {
@@ -69,11 +72,11 @@ extension RGHome {
         guard let feedsData = feeds?.data?.children else {
             return
         }
-        removeLoader()
-        dataProvider.homeSectionDirector.insertSections(sections: feedsData)
+       // removeLoader()
+        dataProvider.homeElementSectionDirector.insertSections(sections: feedsData)
         let indexPaths = indexPath(for: feedsData)
         homeSectionTableView.beginUpdates()
-        removeLoaderRow()
+        //removeLoaderRow()
         insertFeedsRows(using: indexPaths)
         homeSectionTableView.endUpdates()
     }
@@ -103,15 +106,15 @@ extension RGHome {
         guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        dataProvider.homeSectionDirector.insertSection(section: home.loaderSection)
-        homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
+        dataProvider.homeElementSectionDirector.insertSection(section: home.loaderSection)
+        homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeElementSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
     }
     
     fileprivate func removeLoader() {
         guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        dataProvider.homeSectionDirector.removeSection(section: loaderSection)
+        dataProvider.homeElementSectionDirector.removeSection(section: loaderSection)
     }
     
     fileprivate func removeLoaderRow() {
@@ -123,8 +126,8 @@ extension RGHome {
         guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        if dataProvider.homeSectionDirector.sectionsCount <= 0 {
-            dataProvider.homeSectionDirector.insertSection(section: home.errorSection)
+        if dataProvider.homeElementSectionDirector.sectionsCount <= 0 {
+            dataProvider.homeElementSectionDirector.insertSection(section: home.errorSection)
             home.homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         } else {
             let alert = RGBasicAlertFactory.createAlert(title: "Opps..!", message: "Something went wrong please try to refresh", actionTitle: "Ok", style: .default, handler: nil)

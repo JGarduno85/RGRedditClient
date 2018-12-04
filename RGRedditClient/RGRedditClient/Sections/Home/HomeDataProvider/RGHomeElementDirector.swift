@@ -21,6 +21,8 @@ struct RGBasicAlertFactory {
 protocol RGHomeElementDirecting {
     var sectionsCount: Int { get }
     var sectionsAreEmpty: Bool { get }
+    var lastSection: Any? { get }
+    var delegate: RGHomeElementDirectorDelegate? { set get }
     func insertSection(section: Any)
     func insertSections(sections: [Any])
     func removeSection(section: Any)
@@ -30,11 +32,16 @@ protocol RGHomeElementDirecting {
 class RGHomeElementDirector: RGHomeElementDirecting {
     fileprivate var homeSections:[Any] = []
     fileprivate var sectionsRegistered: [RGHomeSections: String] = [:]
+    weak var delegate: RGHomeElementDirectorDelegate?
     
     enum RGHomeSections: String {
         case error
         case loader
         case feed
+    }
+    
+    var lastSection: Any? {
+        return homeSections.last
     }
     
     var sectionsRegisteredCount: Int{
@@ -140,4 +147,9 @@ class RGHomeElementDirector: RGHomeElementDirecting {
             }
         }
     }
+}
+
+
+protocol RGHomeElementDirectorDelegate: class {
+    func loadNextBatch(delegate: UITableViewDataSource)
 }
