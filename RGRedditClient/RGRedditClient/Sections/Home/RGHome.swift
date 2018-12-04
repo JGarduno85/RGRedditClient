@@ -45,7 +45,7 @@ extension RGHome {
     }
     
     func requestFeeds(success: ((RGFeedContainer?) -> Void)?, fail:((Error?) -> Void)?){
-       // showLoader(home: self)
+        showLoader(home: self)
         homeServiceProvider.getHomeFeeds { (feeds, error) in
             guard error == nil else {
                 if let fail = fail {
@@ -72,11 +72,13 @@ extension RGHome {
         guard let feedsData = feeds?.data?.children else {
             return
         }
-       // removeLoader()
+        
         dataProvider.homeElementSectionDirector.insertSections(sections: feedsData)
         let indexPaths = indexPath(for: feedsData)
         homeSectionTableView.beginUpdates()
-        //removeLoaderRow()
+        if let loaderIndex = removeLoader() {
+            removeLoaderRow(indexPath: IndexPath(row: loaderIndex, section: 0))
+        }
         insertFeedsRows(using: indexPaths)
         homeSectionTableView.endUpdates()
     }
@@ -110,16 +112,17 @@ extension RGHome {
         homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeElementSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
     }
     
-    fileprivate func removeLoader() {
+    @discardableResult fileprivate func removeLoader() -> Int? {
         guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
-            return
+            return nil
         }
+        let indexLoader = dataProvider.homeElementSectionDirector.index(of: loaderSection)
         dataProvider.homeElementSectionDirector.removeSection(section: loaderSection)
+        return indexLoader
     }
     
-    fileprivate func removeLoaderRow() {
-        let numberRows = homeSectionTableView.numberOfRows(inSection: 0)
-        homeSectionTableView.deleteRows(at: [IndexPath(row: numberRows - 1, section: 0)], with: .fade)
+    fileprivate func removeLoaderRow(indexPath: IndexPath) {
+        homeSectionTableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     fileprivate func showErrorMessage(home: RGHome) {
@@ -128,7 +131,7 @@ extension RGHome {
         }
         if dataProvider.homeElementSectionDirector.sectionsCount <= 0 {
             dataProvider.homeElementSectionDirector.insertSection(section: home.errorSection)
-            home.homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            home.homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         } else {
             let alert = RGBasicAlertFactory.createAlert(title: "Opps..!", message: "Something went wrong please try to refresh", actionTitle: "Ok", style: .default, handler: nil)
             self.present(alert, animated: true, completion: nil)

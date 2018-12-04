@@ -27,6 +27,7 @@ protocol RGHomeElementDirecting {
     func insertSections(sections: [Any])
     func removeSection(section: Any)
     func elementSection(at index: Int) -> (section: Any,sectionId: String?)?
+    func index(of section: Any) -> Int?
 }
 
 class RGHomeElementDirector: RGHomeElementDirecting {
@@ -97,6 +98,22 @@ class RGHomeElementDirector: RGHomeElementDirecting {
             return nil
         }
         return (section, sectionId)
+    }
+    
+    func index(of section: Any) -> Int? {
+        guard !homeSections.isEmpty else {
+            return nil
+        }
+        guard let sectionId = getId(for: section) else {
+            return nil
+        }
+        let sectionIndex = homeSections.firstIndex { (element) -> Bool in
+            guard let id = getId(for: element) else {
+                return false
+            }
+            return sectionId == id
+        }
+        return sectionIndex
     }
     
     fileprivate func getId(for section: Any) -> String? {

@@ -39,13 +39,17 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
             return UITableViewCell()
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: sectionId, for: indexPath)
-        if !isLoadingCell(for: indexPath) {
-            if  let feedCell = cell as? RGFeedTableViewCell {
-                if let feedDataContainer = sectionElement.section as? RGFeedDataContainer, let feed = feedDataContainer.data {
-                    feedCell.configure(with: feed)
-                    feedCell.author.text?.append("row: \(indexPath.row)")
+        if  let feedCell = cell as? RGFeedTableViewCell {
+            if !isLoadingCell(for: indexPath) {
+                    if let feedDataContainer = sectionElement.section as? RGFeedDataContainer, let feed = feedDataContainer.data {
+                        feedCell.configure(with: feed)
+                        feedCell.author.text?.append("row: \(indexPath.row)")
+                    }
                 }
-            }
+        }
+        
+        if let loaderCell = cell as? RGLoaderTableViewCell {
+            loaderCell.startAnimating()
         }
         
         return cell
