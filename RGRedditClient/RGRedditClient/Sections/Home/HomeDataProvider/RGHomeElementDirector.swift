@@ -168,5 +168,6 @@ class RGHomeElementDirector: RGHomeElementDirecting {
 
 
 protocol RGHomeElementDirectorDelegate: class {
+    var isFetchInProgress: Bool { set get }
     func loadNextBatch(delegate: UITableViewDataSource)
 }

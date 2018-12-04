@@ -14,15 +14,14 @@ class RGFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var comments: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    @IBOutlet weak var thumbnail: UIImageView!
+    
+    override func prepareForReuse() {
+        title.text = ""
+        author.text = ""
+        time.text = ""
+        comments.text = ""
+        thumbnail.image = nil
     }
     
     func configure(with feed:RGFeed) {
@@ -30,6 +29,7 @@ class RGFeedTableViewCell: UITableViewCell {
         author.text = feed.author_fullname
         configureTime(for: feed)
         configureComments(from: feed)
+        configureThumbnail(from: feed)
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
@@ -46,6 +46,19 @@ class RGFeedTableViewCell: UITableViewCell {
         comments.text = comments(fromNumber: numberOfComments)
     }
     
+    fileprivate func configureThumbnail(from feed: RGFeed) {
+        guard let thumbnailString = feed.thumbnail else {
+            return
+        }
+        UIImage.downloadImage(from: thumbnailString, success: { [weak self] (image) in
+            self?.thumbnail.image = image
+            self?.setNeedsDisplay()
+            self?.updateConstraints()
+        }, fail: { (error) in
+            
+        })
+    }
+    
     fileprivate func getTimeStr(from interval: TimeInterval) -> String {
         let time = Int(floor(interval / 3600))
         return "\(time) hours ago"
@@ -54,5 +67,30 @@ class RGFeedTableViewCell: UITableViewCell {
     fileprivate func comments(fromNumber number: Int) -> String {
         return "\(number)Comments"
     }
-    
+}
+
+
+extension UIImage {
+    typealias imageSuccess = (UIImage?) -> Void
+    typealias imageFail = (Error?) -> Void
+    static var imageCache = NSCache<AnyObject, AnyObject>()
+    static func downloadImage(from url: String, success: @escaping imageSuccess, fail: @escaping imageFail)  {
+        if let imageFromCache = UIImage.imageCache.object(forKey: url as AnyObject) as? UIImage {
+            success(imageFromCache)
+            return
+        }
+        guard let baseURL = URL(string: url) else {
+            return fail(nil)
+        }
+        let client = RGNetworkClient.createRGNetworkClient(withBaseUrl: baseURL, andSession: nil)
+        client.getResults(success: { (data, response) in
+            var image: UIImage?
+            if let data = data {
+               image = UIImage(data: data)
+            }
+            success(image)
+        }) { (response, error) in
+            fail(error)
+        }
+    }
 }

@@ -9,6 +9,8 @@
 import UIKit
 
 class RGHome: UIViewController, RGHomeElementDirectorDelegate {
+    var isFetchInProgress: Bool = false
+    
     @IBOutlet weak var homeSectionTableView: UITableView!
     
     var homeServiceProvider: RGHomeServiceProviding!
@@ -45,8 +47,10 @@ extension RGHome {
     }
     
     func requestFeeds(success: ((RGFeedContainer?) -> Void)?, fail:((Error?) -> Void)?){
+        isFetchInProgress = true
         showLoader(home: self)
-        homeServiceProvider.getHomeFeeds { (feeds, error) in
+        homeServiceProvider.getHomeFeeds { [weak self] (feeds, error) in
+            self?.isFetchInProgress = false
             guard error == nil else {
                 if let fail = fail {
                     fail(error)
@@ -61,6 +65,7 @@ extension RGHome {
             }
             if let success = success {
                success(feeds)
+                return
             }
         }
     }
@@ -126,7 +131,12 @@ extension RGHome {
     }
     
     fileprivate func showErrorMessage(home: RGHome) {
+        homeSectionTableView.beginUpdates()
+        if let loaderIndex = removeLoader() {
+            removeLoaderRow(indexPath: IndexPath(row: loaderIndex, section: 0))
+        }
         guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
+            homeSectionTableView.endUpdates()
             return
         }
         if dataProvider.homeElementSectionDirector.sectionsCount <= 0 {
@@ -136,6 +146,7 @@ extension RGHome {
             let alert = RGBasicAlertFactory.createAlert(title: "Opps..!", message: "Something went wrong please try to refresh", actionTitle: "Ok", style: .default, handler: nil)
             self.present(alert, animated: true, completion: nil)
         }
+        homeSectionTableView.endUpdates()
     }
 }
 

@@ -66,6 +66,7 @@ struct RGRequest: RGRequestable {
         }
         
         let urlRequest = NSMutableURLRequest(url: url)
+        urlRequest.timeoutInterval = 5.0
         urlRequest.httpMethod = method.rawValue
         return urlRequest.copy() as! URLRequest
     }

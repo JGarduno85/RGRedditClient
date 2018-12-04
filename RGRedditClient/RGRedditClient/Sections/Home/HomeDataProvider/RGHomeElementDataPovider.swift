@@ -13,6 +13,7 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     var homeElementSectionDirector: RGHomeElementDirecting
     override init() {
         homeElementSectionDirector = RGHomeElementDirector()
+        
     }
     
     convenience init(homeSectionDirectorDelegate delegate: RGHomeElementDirectorDelegate) {
@@ -75,7 +76,7 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: isLoadingCell) {
+        if indexPaths.contains(where: isLoadingCell), let fetchInProgress = homeElementSectionDirector.delegate?.isFetchInProgress, !fetchInProgress {
             if let delegate = homeElementSectionDirector.delegate {
                 delegate.loadNextBatch(delegate: self)
             }
