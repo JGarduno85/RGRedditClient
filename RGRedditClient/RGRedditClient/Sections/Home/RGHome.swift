@@ -61,12 +61,21 @@ extension RGHome {
             guard let imageDownloaded = image else {
                 return
             }
-            UIImageWriteToSavedPhotosAlbum(imageDownloaded, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(imageDownloaded, self, #selector(self.imageFinish(_:didFinishSavingWithError:contextInfo:)), nil)
         }) { (error) in
             let alert = RGBasicAlertFactory.createAlert(title: "Image Download error", message: "There was an unkown error while downloading the image please try again", actionTitle: "Ok", style: .default, handler: nil)
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    @objc func imageFinish(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
+        if let _ = error {
+            print("Error")
+        } else {
+            print("imageSaved")
+        }
+    }
+
 }
 
 
