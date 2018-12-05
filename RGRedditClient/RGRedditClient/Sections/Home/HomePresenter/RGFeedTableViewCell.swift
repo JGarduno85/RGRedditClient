@@ -17,12 +17,33 @@ class RGFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var thumbnail: UIButton!
     var imageFromThumbnail: String?
     
-    override func prepareForReuse() {
+    fileprivate lazy var tapGesture: UITapGestureRecognizer = {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(thumbnailTap(_:)))
+        tap.numberOfTapsRequired = 1
+        return tap
+    }()
+    
+    fileprivate lazy var longPress: UILongPressGestureRecognizer = {
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(savePhoto(_:)))
+        return longPress
+    }()
+    
+    
+    
+    override func awakeFromNib() {
+        commonInit()
+    }
+    
+    private func commonInit() {
         title.text = ""
         author.text = ""
         time.text = ""
         comments.text = ""
         thumbnail.imageView?.image = nil
+    }
+    
+    override func prepareForReuse() {
+       resetCell()
     }
     
     func configure(with feed:RGFeed) {
@@ -33,11 +54,24 @@ class RGFeedTableViewCell: UITableViewCell {
         configureThumbnail(from: feed)
         imageFromThumbnail = feed.url
     }
-    @IBAction func thumbnailTap(_ sender: Any) {
+    
+    @objc fileprivate func savePhoto(_ sender: Any) {
+       
+    }
+    
+    @objc fileprivate func thumbnailTap(_ sender: Any) {
         guard let imageFromThumbnail = imageFromThumbnail, let url = URL(string: imageFromThumbnail) else {
             return
         }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+    
+    fileprivate func resetCell() {
+        title.text = ""
+        author.text = ""
+        time.text = ""
+        comments.text = ""
+        thumbnail.imageView?.image = nil
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
@@ -59,7 +93,9 @@ class RGFeedTableViewCell: UITableViewCell {
             thumbnail.isHidden = true
             return
         }
-        UIImage.downloadImage(from: thumbnailString, success: { [weak self] (image) in
+        thumbnail.addGestureRecognizer(tapGesture)
+        thumbnail.addGestureRecognizer(longPress)
+        RGFeedTableViewCell.downloadImage(from: thumbnailString, success: { [weak self] (image) in
             self?.thumbnail.setImage(image, for: .normal)
             self?.thumbnail.setImage(image, for: .selected)
             self?.thumbnail.setNeedsDisplay()
@@ -79,12 +115,12 @@ class RGFeedTableViewCell: UITableViewCell {
 }
 
 
-extension UIImage {
+extension RGFeedTableViewCell {
     typealias imageSuccess = (UIImage?) -> Void
     typealias imageFail = (Error?) -> Void
     static var imageCache = NSCache<AnyObject, AnyObject>()
     static func downloadImage(from url: String, success: @escaping imageSuccess, fail: @escaping imageFail)  {
-        if let imageFromCache = UIImage.imageCache.object(forKey: url as AnyObject) as? UIImage {
+        if let imageFromCache = RGFeedTableViewCell.imageCache.object(forKey: url as AnyObject) as? UIImage {
             success(imageFromCache)
             return
         }

@@ -97,9 +97,6 @@
                                             <constraint firstAttribute="width" constant="64" id="h7D-XU-qbn"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="ImagePlaceHolder"/>
-                                        <connections>
-                                            <action selector="thumbnailTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MJ3-k2-TG6"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
