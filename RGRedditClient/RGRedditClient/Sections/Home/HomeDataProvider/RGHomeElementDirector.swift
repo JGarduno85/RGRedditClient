@@ -16,9 +16,18 @@ struct RGBasicAlertFactory {
         alert.addAction(alertAction)
         return alert
     }
+    
+    static func createAlert(title: String, message: String, actionOption1Title: String, styleOption1: UIAlertAction.Style, handlerOption1: ((UIAlertAction) -> Void)?, actionOption2Title: String, styleOption2: UIAlertAction.Style, handlerOption2: ((UIAlertAction) -> Void)?) -> UIAlertController {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alertOkAction = UIAlertAction(title: actionOption1Title, style: styleOption1, handler: handlerOption1)
+        let alertCancelAction = UIAlertAction(title: actionOption2Title, style: styleOption2, handler: handlerOption2)
+        alert.addAction(alertOkAction)
+        alert.addAction(alertCancelAction)
+        return alert
+    }
 }
 
-protocol RGHomeElementDirecting {
+protocol RGHomeElementDirecting: class {
     var sectionsCount: Int { get }
     var sectionsAreEmpty: Bool { get }
     var lastSection: Any? { get }

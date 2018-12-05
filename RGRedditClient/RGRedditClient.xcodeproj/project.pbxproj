@@ -39,6 +39,7 @@
 		216CFBE821B2623A0052193B /* RGFeedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */; };
 		216CFBEA21B4E79D0052193B /* RGHomeElementDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBE921B4E79D0052193B /* RGHomeElementDataProviderTests.swift */; };
 		216CFBEC21B4E7B30052193B /* RGHomeElementDirectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBEB21B4E7B30052193B /* RGHomeElementDirectorTests.swift */; };
+		216CFBEF21B792450052193B /* RGImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 216CFBEE21B792450052193B /* RGImageDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RGFeedTableViewCell.xib; path = RGRedditClient/Sections/Home/HomePresenter/RGFeedTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		216CFBE921B4E79D0052193B /* RGHomeElementDataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGHomeElementDataProviderTests.swift; path = HomeDataProvider/RGHomeElementDataProviderTests.swift; sourceTree = "<group>"; };
 		216CFBEB21B4E7B30052193B /* RGHomeElementDirectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RGHomeElementDirectorTests.swift; path = HomeDataProvider/RGHomeElementDirectorTests.swift; sourceTree = "<group>"; };
+		216CFBEE21B792450052193B /* RGImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGImageDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,11 +274,20 @@
 		216CFBCC21B0EEDC0052193B /* HomePresenters */ = {
 			isa = PBXGroup;
 			children = (
+				216CFBED21B792250052193B /* ImageDownloader */,
 				216CFBE321B25FBE0052193B /* RGFeedPresenter.swift */,
 				216CFBE521B2623A0052193B /* RGFeedTableViewCell.swift */,
 				216CFBE621B2623A0052193B /* RGFeedTableViewCell.xib */,
 			);
 			path = HomePresenters;
+			sourceTree = "<group>";
+		};
+		216CFBED21B792250052193B /* ImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				216CFBEE21B792450052193B /* RGImageDownloader.swift */,
+			);
+			path = ImageDownloader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -403,6 +414,7 @@
 				213A21C221A7DB650079B61B /* RGPostFeed.swift in Sources */,
 				216CFBC021AE7DBE0052193B /* RGHomeElementDirector.swift in Sources */,
 				216CFBB721AD22D80052193B /* RGErrorTableViewCell.swift in Sources */,
+				216CFBEF21B792450052193B /* RGImageDownloader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

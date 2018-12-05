@@ -11,14 +11,15 @@ import UIKit
 
 class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     var homeElementSectionDirector: RGHomeElementDirecting
+    weak var homePresenter: RGHomePresenter?
     override init() {
         homeElementSectionDirector = RGHomeElementDirector()
-        
     }
     
-    convenience init(homeSectionDirectorDelegate delegate: RGHomeElementDirectorDelegate) {
+    convenience init(homeSectionDirectorDelegate delegate: RGHomeElementDirectorDelegate, homePresenter: RGHomePresenter) {
         self.init()
         homeElementSectionDirector.delegate = delegate
+        self.homePresenter = homePresenter
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,6 +46,7 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
                     if let feedDataContainer = sectionElement.section as? RGFeedDataContainer, let feed = feedDataContainer.data {
                         feedCell.configure(with: feed)
                         feedCell.author.text?.append("row: \(indexPath.row)")
+                        feedCell.feedCellAction = homePresenter
                     }
                 }
         }

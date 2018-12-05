@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RGFeedCellAction: class {
+    func saveImageInAlbum(imageURLStr: String)
+}
+
 class RGFeedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
@@ -16,6 +20,7 @@ class RGFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var comments: UILabel!
     @IBOutlet weak var thumbnail: UIButton!
     var imageFromThumbnail: String?
+    weak var feedCellAction: RGFeedCellAction?
     
     fileprivate lazy var tapGesture: UITapGestureRecognizer = {
         let tap = UITapGestureRecognizer(target: self, action: #selector(thumbnailTap(_:)))
@@ -56,7 +61,10 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     @objc fileprivate func savePhoto(_ sender: Any) {
-       
+        guard let feedAction = feedCellAction, let imageStr = imageFromThumbnail else {
+            return
+        }
+        feedAction.saveImageInAlbum(imageURLStr: imageStr)
     }
     
     @objc fileprivate func thumbnailTap(_ sender: Any) {
@@ -95,7 +103,7 @@ class RGFeedTableViewCell: UITableViewCell {
         }
         thumbnail.addGestureRecognizer(tapGesture)
         thumbnail.addGestureRecognizer(longPress)
-        RGFeedTableViewCell.downloadImage(from: thumbnailString, success: { [weak self] (image) in
+        RGImageDownloader.downloadImage(from: thumbnailString, success: { [weak self] (image) in
             self?.thumbnail.setImage(image, for: .normal)
             self?.thumbnail.setImage(image, for: .selected)
             self?.thumbnail.setNeedsDisplay()
@@ -111,31 +119,5 @@ class RGFeedTableViewCell: UITableViewCell {
     
     fileprivate func comments(fromNumber number: Int) -> String {
         return "\(number)Comments"
-    }
-}
-
-
-extension RGFeedTableViewCell {
-    typealias imageSuccess = (UIImage?) -> Void
-    typealias imageFail = (Error?) -> Void
-    static var imageCache = NSCache<AnyObject, AnyObject>()
-    static func downloadImage(from url: String, success: @escaping imageSuccess, fail: @escaping imageFail)  {
-        if let imageFromCache = RGFeedTableViewCell.imageCache.object(forKey: url as AnyObject) as? UIImage {
-            success(imageFromCache)
-            return
-        }
-        guard let baseURL = URL(string: url) else {
-            return fail(nil)
-        }
-        let client = RGNetworkClient.createRGNetworkClient(withBaseUrl: baseURL, andSession: nil)
-        client.getResults(success: { (data, response) in
-            var image: UIImage?
-            if let data = data {
-               image = UIImage(data: data)
-            }
-            success(image)
-        }) { (response, error) in
-            fail(error)
-        }
     }
 }

@@ -8,7 +8,11 @@
 
 import UIKit
 
-class RGHome: UIViewController, RGHomeElementDirectorDelegate {
+protocol RGHomePresenter: RGFeedCellAction, RGHomeElementDirectorDelegate {
+    
+}
+
+class RGHome: UIViewController, RGHomePresenter {
     var isFetchInProgress: Bool = false
     
     @IBOutlet weak var homeSectionTableView: UITableView!
@@ -30,13 +34,19 @@ class RGHome: UIViewController, RGHomeElementDirectorDelegate {
         errorSection = RGErrorPresenter()
         loaderSection = RGLoaderPresenter()
         homeServiceProvider = RGHomeServiceProvider.createHomeServiceProvider()
-        homeSectionDataProvider = RGHomeSectionDataProvider(homeSectionDirectorDelegate: self)
+        homeSectionDataProvider = RGHomeSectionDataProvider(homeSectionDirectorDelegate: self, homePresenter: self)
         homeSectionTableView.register(UINib(nibName: "RGErrorTableViewCell", bundle: nil), forCellReuseIdentifier: errorSection.id)
         homeSectionTableView.register(UINib(nibName: "RGLoaderTableViewCell", bundle: nil), forCellReuseIdentifier: loaderSection.id)
         homeSectionTableView.register(UINib(nibName: "RGFeedTableViewCell", bundle: nil), forCellReuseIdentifier:RGFeedPresenter.id)
         homeSectionTableView.dataSource = homeSectionDataProvider
         homeSectionTableView.delegate = homeSectionDataProvider
         homeSectionTableView.prefetchDataSource = homeSectionDataProvider
+    }
+}
+
+extension RGHome {
+    func saveImageInAlbum(imageURLStr: String) {
+        
     }
 }
 
