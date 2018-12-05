@@ -46,7 +46,26 @@ class RGHome: UIViewController, RGHomePresenter {
 
 extension RGHome {
     func saveImageInAlbum(imageURLStr: String) {
-        
+        let imageAlertSaveAction = { [weak self] (alert: UIAlertAction) in
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.startImageDownload(withURLStr: imageURLStr)
+        }
+        let alert = RGBasicAlertFactory.createAlert(title: "Save Image", message: "Would you like to save the image selected in the phone album?", actionOption1Title: "Ok", styleOption1: .default, handlerOption1: imageAlertSaveAction, actionOption2Title: "Cancel", styleOption2: .destructive, handlerOption2: nil)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    fileprivate func startImageDownload(withURLStr url: String) {
+        RGImageDownloader.downloadImage(from: url, success: { (image) in
+            guard let imageDownloaded = image else {
+                return
+            }
+            UIImageWriteToSavedPhotosAlbum(imageDownloaded, nil, nil, nil)
+        }) { (error) in
+            let alert = RGBasicAlertFactory.createAlert(title: "Image Download error", message: "There was an unkown error while downloading the image please try again", actionTitle: "Ok", style: .default, handler: nil)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 

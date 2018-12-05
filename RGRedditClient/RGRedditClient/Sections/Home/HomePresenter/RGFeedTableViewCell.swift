@@ -30,6 +30,7 @@ class RGFeedTableViewCell: UITableViewCell {
     
     fileprivate lazy var longPress: UILongPressGestureRecognizer = {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(savePhoto(_:)))
+        longPress.minimumPressDuration = 1.5
         return longPress
     }()
     
@@ -62,6 +63,9 @@ class RGFeedTableViewCell: UITableViewCell {
     
     @objc fileprivate func savePhoto(_ sender: Any) {
         guard let feedAction = feedCellAction, let imageStr = imageFromThumbnail else {
+            return
+        }
+        guard longPress.state == .began else {
             return
         }
         feedAction.saveImageInAlbum(imageURLStr: imageStr)
