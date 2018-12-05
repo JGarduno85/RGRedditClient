@@ -82,10 +82,14 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
+    
 }
 
 extension RGHomeSectionDataProvider {
-    
     func isLoadingCell(for indexPath: IndexPath) -> Bool {
         return indexPath.row >= homeElementSectionDirector.sectionsCount - 1
     }

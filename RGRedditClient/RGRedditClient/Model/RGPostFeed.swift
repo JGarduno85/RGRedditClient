@@ -58,9 +58,10 @@ class RGFeed: Decodable {
     var created_utc: TimeInterval?
     var thumbnail: String?
     var num_comments: Int?
+    var url: String?
     
     enum FeedKeys: String, CodingKey {
-        case title, author_fullname, created_utc, thumbnail, num_comments
+        case title, author_fullname, created_utc, thumbnail, num_comments, url
     }
     
     required init(from decoder: Decoder) throws {
@@ -70,6 +71,7 @@ class RGFeed: Decodable {
         self.created_utc            = try container.decodeIfPresent(TimeInterval.self, forKey: .created_utc)
         self.thumbnail              = try container.decodeIfPresent(String.self, forKey: .thumbnail)
         self.num_comments           = try container.decodeIfPresent(Int.self, forKey: .num_comments)
+        self.url                    = try container.decodeIfPresent(String.self, forKey: .url)
     }
     
     init() {}

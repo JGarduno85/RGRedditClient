@@ -14,14 +14,15 @@ class RGFeedTableViewCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var time: UILabel!
     @IBOutlet weak var comments: UILabel!
-    @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet weak var thumbnail: UIButton!
+    var imageFromThumbnail: String?
     
     override func prepareForReuse() {
         title.text = ""
         author.text = ""
         time.text = ""
         comments.text = ""
-        thumbnail.image = nil
+        thumbnail.imageView?.image = nil
     }
     
     func configure(with feed:RGFeed) {
@@ -30,6 +31,13 @@ class RGFeedTableViewCell: UITableViewCell {
         configureTime(for: feed)
         configureComments(from: feed)
         configureThumbnail(from: feed)
+        imageFromThumbnail = feed.url
+    }
+    @IBAction func thumbnailTap(_ sender: Any) {
+        guard let imageFromThumbnail = imageFromThumbnail, let url = URL(string: imageFromThumbnail) else {
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
@@ -48,12 +56,13 @@ class RGFeedTableViewCell: UITableViewCell {
     
     fileprivate func configureThumbnail(from feed: RGFeed) {
         guard let thumbnailString = feed.thumbnail else {
+            thumbnail.isHidden = true
             return
         }
         UIImage.downloadImage(from: thumbnailString, success: { [weak self] (image) in
-            self?.thumbnail.image = image
-            self?.setNeedsDisplay()
-            self?.updateConstraints()
+            self?.thumbnail.setImage(image, for: .normal)
+            self?.thumbnail.setImage(image, for: .selected)
+            self?.thumbnail.setNeedsDisplay()
         }, fail: { (error) in
             
         })
