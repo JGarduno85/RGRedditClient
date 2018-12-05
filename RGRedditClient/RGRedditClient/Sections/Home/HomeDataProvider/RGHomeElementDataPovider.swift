@@ -45,7 +45,6 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
             if !isLoadingCell(for: indexPath) {
                     if let feedDataContainer = sectionElement.section as? RGFeedDataContainer, let feed = feedDataContainer.data {
                         feedCell.configure(with: feed)
-                        feedCell.author.text?.append("row: \(indexPath.row)")
                         feedCell.feedCellAction = homePresenter
                     }
                 }
