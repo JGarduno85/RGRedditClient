@@ -68,6 +68,8 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
         if element.section is RGLoaderPresenter {
             if homeElementSectionDirector.sectionsCount <= 1 {
                 return tableView.bounds.size.height
+            } else {
+                return 44
             }
         }
         if element.section is RGErrorPresenter {

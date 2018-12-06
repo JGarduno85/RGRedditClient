@@ -13,7 +13,7 @@ protocol RGFeedCellAction: class {
 }
 
 class RGFeedTableViewCell: UITableViewCell {
-
+    static let thumbnailPlaceHolder = UIImage(named: "ImagePlaceHolder")
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var author: UILabel!
     @IBOutlet weak var time: UILabel!
