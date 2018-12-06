@@ -10,15 +10,11 @@ import Foundation
 import UIKit
 
 
-struct RGImageDownloader {
+class RGImageDownloader {
     typealias imageSuccess = (UIImage?) -> Void
     typealias imageFail = (Error?) -> Void
     static var imageCache = NSCache<AnyObject, AnyObject>()
     static func downloadImage(from url: String, success: @escaping imageSuccess, fail: @escaping imageFail)  {
-        if let imageFromCache = RGImageDownloader.imageCache.object(forKey: url as AnyObject) as? UIImage {
-            success(imageFromCache)
-            return
-        }
         guard let baseURL = URL(string: url) else {
             return fail(nil)
         }
@@ -27,6 +23,9 @@ struct RGImageDownloader {
             var image: UIImage?
             if let data = data {
                 image = UIImage(data: data)
+                if let cacheImage = image {
+                    RGImageDownloader.imageCache.setObject(cacheImage, forKey: url as AnyObject)
+                }
             }
             success(image)
         }) { (response, error) in

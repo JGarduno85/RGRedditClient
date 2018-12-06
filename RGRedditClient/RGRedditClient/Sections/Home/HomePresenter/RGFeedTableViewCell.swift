@@ -105,12 +105,22 @@ class RGFeedTableViewCell: UITableViewCell {
             thumbnail.isHidden = true
             return
         }
-        thumbnail.addGestureRecognizer(tapGesture)
-        thumbnail.addGestureRecognizer(longPress)
+        if let imageFromCache = RGImageDownloader.imageCache.object(forKey: thumbnailString as AnyObject) as? UIImage {
+            thumbnail.setImage(imageFromCache, for: .normal)
+            thumbnail.setImage(imageFromCache, for: .selected)
+            thumbnail.isHidden = false
+            return
+        }
         RGImageDownloader.downloadImage(from: thumbnailString, success: { [weak self] (image) in
-            self?.thumbnail.setImage(image, for: .normal)
-            self?.thumbnail.setImage(image, for: .selected)
-            self?.thumbnail.setNeedsDisplay()
+            guard let strongSelf = self else {
+                return
+            }
+            strongSelf.thumbnail.isHidden = false
+            strongSelf.thumbnail.setImage(image, for: .normal)
+            strongSelf.thumbnail.setImage(image, for: .selected)
+            strongSelf.thumbnail.addGestureRecognizer(strongSelf.tapGesture)
+            strongSelf.thumbnail.addGestureRecognizer(strongSelf.longPress)
+            strongSelf.thumbnail.setNeedsDisplay()
         }, fail: { (error) in
             
         })
