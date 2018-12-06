@@ -101,7 +101,7 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     fileprivate func configureThumbnail(from feed: RGFeed) {
-        guard let thumbnailString = feed.thumbnail, let url = URL(string: thumbnailString), UIApplication.shared.canOpenURL(url) else {
+        guard let thumbnailString = feed.thumbnail, thumbnailString.hasPrefix("http://") || thumbnailString.hasPrefix("https://") else {
             thumbnail.isHidden = true
             return
         }
