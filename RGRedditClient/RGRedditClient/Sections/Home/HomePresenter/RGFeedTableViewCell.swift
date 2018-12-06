@@ -45,7 +45,6 @@ class RGFeedTableViewCell: UITableViewCell {
         author.text = ""
         time.text = ""
         comments.text = ""
-        thumbnail.imageView?.image = nil
     }
     
     override func prepareForReuse() {
@@ -83,7 +82,8 @@ class RGFeedTableViewCell: UITableViewCell {
         author.text = ""
         time.text = ""
         comments.text = ""
-        thumbnail.imageView?.image = nil
+        thumbnail.setImage(nil, for: .normal)
+        thumbnail.setImage(nil, for: .selected)
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
@@ -101,7 +101,7 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     fileprivate func configureThumbnail(from feed: RGFeed) {
-        guard let thumbnailString = feed.thumbnail else {
+        guard let thumbnailString = feed.thumbnail, let url = URL(string: thumbnailString), UIApplication.shared.canOpenURL(url) else {
             thumbnail.isHidden = true
             return
         }
