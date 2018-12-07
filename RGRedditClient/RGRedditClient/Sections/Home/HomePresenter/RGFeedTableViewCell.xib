@@ -124,6 +124,7 @@
                         </constraints>
                     </stackView>
                 </subviews>
+                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
                 <constraints>
                     <constraint firstItem="c8b-uR-uEk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="0eD-xg-8fQ"/>
                     <constraint firstAttribute="bottom" secondItem="c8b-uR-uEk" secondAttribute="bottom" constant="8" id="3DM-Vt-tza"/>

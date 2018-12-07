@@ -45,6 +45,9 @@ class RGFeedTableViewCell: UITableViewCell {
         author.text = ""
         time.text = ""
         comments.text = ""
+        thumbnail.isHidden = true
+        thumbnail.layer.cornerRadius = 1.5
+        thumbnail.clipsToBounds = true
     }
     
     override func prepareForReuse() {
@@ -82,8 +85,8 @@ class RGFeedTableViewCell: UITableViewCell {
         author.text = ""
         time.text = ""
         comments.text = ""
-        thumbnail.setImage(nil, for: .normal)
-        thumbnail.setImage(nil, for: .selected)
+        thumbnail.setImage(RGFeedTableViewCell.thumbnailPlaceHolder, for: .normal)
+        thumbnail.setImage(RGFeedTableViewCell.thumbnailPlaceHolder, for: .selected)
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
@@ -101,6 +104,7 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     fileprivate func configureThumbnail(from feed: RGFeed) {
+        thumbnail.isHidden = true
         guard let thumbnailString = feed.thumbnail, thumbnailString.hasPrefix("http://") || thumbnailString.hasPrefix("https://") else {
             thumbnail.isHidden = true
             return

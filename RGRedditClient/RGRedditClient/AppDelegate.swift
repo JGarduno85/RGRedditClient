@@ -42,26 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        if let appVersion = AppDelegate.appVersion {
-            coder.encode(appVersion, forKey: "RGEdditAppVersion")
-            return true
-        }
         return false
     }
     
     func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
-        let version = coder.decodeObject(forKey: "RGEdditAppVersion") as? String
-        if let currentBunldeVersion = version, let savedStateVersion = AppDelegate.appVersion, currentBunldeVersion == savedStateVersion {
-            return true
-        }
         return false
     }
 }
-
-
-extension AppDelegate {
-    static var appVersion: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
-    }
-}
-
