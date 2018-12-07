@@ -31,11 +31,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ko3-FB-r3g" userLabel="SubContentView">
                                 <rect key="frame" x="0.0" y="103.5" width="468" height="68"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-Hn-m9b" userLabel="AuthotTimeCommentStackView">
-                                        <rect key="frame" x="0.0" y="0.0" width="380" height="68"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-Hn-m9b" userLabel="AuthotTimeCommentStackView">
+                                        <rect key="frame" x="0.0" y="0.0" width="338" height="68"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kPP-uk-qOW">
-                                                <rect key="frame" x="0.0" y="0.0" width="380" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="260" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Author" translatesAutoresizingMaskIntoConstraints="NO" id="d2T-qK-otC" userLabel="author">
                                                         <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
@@ -44,16 +44,16 @@
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="16" id="kFb-qY-5mJ"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaM-Ku-skH">
-                                                        <rect key="frame" x="24" y="0.0" width="356" height="16"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leaggggg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iaM-Ku-skH">
+                                                        <rect key="frame" x="24" y="0.0" width="236" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7Z4-xa-qDq">
-                                                <rect key="frame" x="0.0" y="26" width="380" height="16"/>
+                                                <rect key="frame" x="0.0" y="26" width="338" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Time" translatesAutoresizingMaskIntoConstraints="NO" id="Y57-cV-bxB" userLabel="Time">
                                                         <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
@@ -62,16 +62,16 @@
                                                             <constraint firstAttribute="height" relation="lessThanOrEqual" constant="16" id="obb-aj-Hdb"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0j-oT-13D">
-                                                        <rect key="frame" x="24" y="0.0" width="356" height="16"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also g the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0j-oT-13D">
+                                                        <rect key="frame" x="24" y="0.0" width="314" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IzX-hx-BFu">
-                                                <rect key="frame" x="0.0" y="52" width="380" height="16"/>
+                                                <rect key="frame" x="0.0" y="52" width="326" height="16"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Comments" translatesAutoresizingMaskIntoConstraints="NO" id="1DL-Jn-1QA" userLabel="comments">
                                                         <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
@@ -81,8 +81,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="five centuries, but also the leap into electronic " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4bR-0r-W43">
-                                                        <rect key="frame" x="24" y="0.0" width="356" height="16"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <rect key="frame" x="24" y="0.0" width="302" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -140,7 +140,7 @@
                 <outlet property="time" destination="z0j-oT-13D" id="S2M-xr-BjS"/>
                 <outlet property="title" destination="Ee1-kA-RwS" id="Pir-n6-uzP"/>
             </connections>
-            <point key="canvasLocation" x="113.59999999999999" y="-26.986506746626688"/>
+            <point key="canvasLocation" x="114" y="-13"/>
         </tableViewCell>
     </objects>
     <resources>

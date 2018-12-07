@@ -61,7 +61,7 @@ class RGFeed: Decodable {
     var url: String?
     
     enum FeedKeys: String, CodingKey {
-        case title, author_fullname, created_utc, thumbnail, num_comments, url
+        case title, author_fullname = "author", created_utc, thumbnail, num_comments, url
     }
     
     required init(from decoder: Decoder) throws {

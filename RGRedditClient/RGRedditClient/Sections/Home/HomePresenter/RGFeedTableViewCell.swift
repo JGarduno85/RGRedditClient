@@ -90,10 +90,10 @@ class RGFeedTableViewCell: UITableViewCell {
     }
     
     fileprivate func configureTime(for feed: RGFeed) {
-        guard let timeUTC = feed.created_utc else {
+        guard let timeUTC = feed.created_utc, let timeDifference = getTimeStr(from: timeUTC) else {
             return
         }
-        time.text = getTimeStr(from: timeUTC)
+        time.text = timeDifference
     }
     
     fileprivate func configureComments(from feed: RGFeed) {
@@ -130,12 +130,25 @@ class RGFeedTableViewCell: UITableViewCell {
         })
     }
     
-    fileprivate func getTimeStr(from interval: TimeInterval) -> String {
-        let time = Int(floor(interval / 3600))
-        return "\(time) hours ago"
+    fileprivate func getTimeStr(from interval: TimeInterval) -> String? {
+        let now = Date()
+        let postDate = Date(timeIntervalSince1970: interval)
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        guard let differenceHourAgo = calendar.dateComponents([.hour], from: now, to: postDate).hour else {
+            return nil
+        }
+        
+        return "\(abs(differenceHourAgo)) hours ago"
     }
     
-    fileprivate func comments(fromNumber number: Int) -> String {
-        return "\(number)Comments"
+    fileprivate func comments(fromNumber number: Int) -> String? {
+        let formatter = NumberFormatter()
+        formatter.groupingSeparator = ","
+        formatter.numberStyle = .decimal
+        guard let numberFormatted = formatter.string(from: NSNumber(value: number)) else {
+            return nil
+        }
+        return "\(numberFormatted) comments"
     }
 }
