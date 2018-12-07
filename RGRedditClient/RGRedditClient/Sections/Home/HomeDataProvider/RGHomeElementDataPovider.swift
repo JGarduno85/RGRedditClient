@@ -12,6 +12,7 @@ import UIKit
 class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
     var homeElementSectionDirector: RGHomeElementDirecting
     weak var homePresenter: RGHomePresenter?
+    var elementsHeight: [IndexPath: CGFloat] = [:]
     override init() {
         homeElementSectionDirector = RGHomeElementDirector()
     }
@@ -58,6 +59,9 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let height =  elementsHeight[indexPath] {
+            return height
+        }
         return UITableView.automaticDimension
     }
     
@@ -88,6 +92,15 @@ class RGHomeSectionDataProvider: NSObject, UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
         return false
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let element = homeElementSectionDirector.elementSection(at: indexPath.row) else {
+            return 
+        }
+        if element.section is RGFeedDataContainer{
+            elementsHeight[indexPath] = cell.frame.size.height
+        }
     }
     
 }
