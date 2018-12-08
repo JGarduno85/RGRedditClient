@@ -25,8 +25,11 @@ class RGHome: UIViewController, RGHomePresenter {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         commonInit()
+        let stateSaved = UserDefaults.standard.value(forKey: "stateSaved") as? Bool ?? false
         if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] == nil {
-            requestFeeds(success: loadFeeds, fail: loadError)
+            if !stateSaved {
+                requestFeeds(success: loadFeeds, fail: loadError)
+            }
         }
     }
     

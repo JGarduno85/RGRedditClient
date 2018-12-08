@@ -192,6 +192,7 @@ extension RGHomeElementDirector {
         let encoder = JSONEncoder()
         if let data = try? encoder.encode(container) {
             coder.encode(data, forKey: "Feed")
+            UserDefaults.standard.set(true, forKey: "stateSaved")
         }
     }
     
