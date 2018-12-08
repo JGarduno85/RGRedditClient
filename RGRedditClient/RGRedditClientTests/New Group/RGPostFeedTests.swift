@@ -25,7 +25,7 @@ class RGPostFeedTests: XCTestCase {
         guard let sut = feeds?.first?.data else {
             fatalError("No data feeds in this json")
         }
-        let jsonMockData = RGJsonMockData(title: "\"Ooh, I know this one!\"", thumbnail: "https://b.thumbs.redditmedia.com/HRVGekopDIUyLBOF6-A87F161n8aojmgwNP4W0ksElY.jpg", author_fullname: "t2_1jgbe6yc", num_comments: 554, created_utc: 1542899845)
+        let jsonMockData = RGJsonMockData(title: "\"Ooh, I know this one!\"", thumbnail: "https://b.thumbs.redditmedia.com/HRVGekopDIUyLBOF6-A87F161n8aojmgwNP4W0ksElY.jpg", author_fullname: "IMANICEGUY07", num_comments: 554, created_utc: 1542899845)
         assertSetValues(of: sut, withJsonMock: jsonMockData)
         assertNotNullity(of: sut)
     }
