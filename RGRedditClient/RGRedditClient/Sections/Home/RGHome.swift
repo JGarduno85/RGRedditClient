@@ -199,8 +199,9 @@ extension RGHome {
         }
         homeSectionDataProvider.homeElementSectionDirector.decodeElements(coder: coder) {
             DispatchQueue.main.async {
-                self.homeSectionTableView.contentOffset = CGPoint.zero
                 self.homeSectionTableView.reloadData()
+                self.homeSectionTableView.layoutIfNeeded()
+                self.homeSectionTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         }
     }
