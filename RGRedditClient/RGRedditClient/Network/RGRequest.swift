@@ -16,12 +16,14 @@ public protocol RGRequestable {
     var method: RGMethod { get }
     var requestURL:URL { get }
     var urlRequestValue: URLRequest { get }
+    var queryParameters: [String: String]? { get set }
 }
 
 
 struct RGRequest: RGRequestable {
     private var localMethod: RGMethod
     private var localRequestURL:URL
+    private var localQueryParameters: [String: String]?
     
     public var method: RGMethod {
         return localMethod
@@ -29,6 +31,15 @@ struct RGRequest: RGRequestable {
     
     public var requestURL: URL {
         return localRequestURL
+    }
+    
+    public var queryParameters: [String: String]? {
+        set {
+            localQueryParameters = newValue
+        }
+        get {
+            return localQueryParameters
+        }
     }
     
     private init(withUrl url: URL, method: RGMethod) {
@@ -41,7 +52,21 @@ struct RGRequest: RGRequestable {
     }
     
     public var urlRequestValue: URLRequest {
-        let urlRequest = NSMutableURLRequest(url: localRequestURL)
+        var url: URL = localRequestURL
+        if let query =  queryParameters, !query.isEmpty {
+            var components: [URLQueryItem] = []
+            var urlComponents = URLComponents(url: localRequestURL, resolvingAgainstBaseURL: false)
+            for component in query {
+                components.append(URLQueryItem(name: component.key, value: component.value))
+            }
+            urlComponents?.queryItems = components
+            if let urlFromComponents = urlComponents?.url {
+                url = urlFromComponents
+            }
+        }
+        
+        let urlRequest = NSMutableURLRequest(url: url)
+        urlRequest.timeoutInterval = 5.0
         urlRequest.httpMethod = method.rawValue
         return urlRequest.copy() as! URLRequest
     }
