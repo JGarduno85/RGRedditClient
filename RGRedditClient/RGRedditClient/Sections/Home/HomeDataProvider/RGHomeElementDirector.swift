@@ -155,10 +155,10 @@ class RGHomeElementDirector: RGHomeElementDirecting {
     }
     
     fileprivate func deregister(section: Any) {
-        if let _ = section as? RGErrorPresenter, !sectionsRegistered.keys.contains(.error) {
+        if let _ = section as? RGErrorPresenter, sectionsRegistered.keys.contains(.error) {
             sectionsRegistered.removeValue(forKey: .error)
         }
-        if let _ = section as? RGLoaderPresenter, !sectionsRegistered.keys.contains(.loader) {
+        if let _ = section as? RGLoaderPresenter, sectionsRegistered.keys.contains(.loader) {
             sectionsRegistered.removeValue(forKey: .loader)
         }
         if let _ = section as? RGFeedDataContainer, sectionsRegistered.keys.contains(.feed) {

@@ -10,6 +10,6 @@ import Foundation
 
 struct RGErrorPresenter {
     var id: String {
-        return "RGLoader"
+        return "RGError"
     }
 }
