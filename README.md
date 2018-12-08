@@ -24,7 +24,12 @@ You don’t have to implement the IMGUR API, so just opening the URL would be OK
 is to scroll up the table view and down to the bottom again to relaunch the fetch.
 - Saving pictures in the picture gallery: Implemented use longpress over the thumbnail to see an alert that tells the user if he wants to download the image.
 - App state-preservation/restoration: Implemented, the latest feeds fetched are saved and when the user restores the app it shows them again. For now it scrolls to the top again.
-- Support iPhone 6/ 6+ screen size: Implemented cells display correct oniPhone 6 an 6+
+- Support iPhone 6/ 6+ screen size: Implemented cells display correct on iPhone 6 an 6+
+
+- Adittionally: 
+  - Basic animations on the rows insertion and deletion where implemented
+  - Unit tests
+  - The base architecture were designed to use POP, this way many of the components can be reuse or functionality can be extended.
 
 ## Getting Started
 
