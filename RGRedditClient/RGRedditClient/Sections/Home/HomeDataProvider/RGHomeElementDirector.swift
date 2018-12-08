@@ -37,6 +37,8 @@ protocol RGHomeElementDirecting: class {
     func removeSection(section: Any)
     func elementSection(at index: Int) -> (section: Any,sectionId: String?)?
     func index(of section: Any) -> Int?
+    func encodeElements(coder: NSCoder)
+    func decodeElements(coder: NSCoder, success: ()->())
 }
 
 class RGHomeElementDirector: RGHomeElementDirecting {
@@ -68,7 +70,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
     
     func insertSections(sections: [Any]) {
         homeSections.append(contentsOf: sections)
-        register(section: sections.first!)
+        register(section: sections.first)
     }
     
     func insertSection(section: Any) {
@@ -142,7 +144,7 @@ class RGHomeElementDirector: RGHomeElementDirecting {
         return nil
     }
     
-    fileprivate func register(section: Any) {
+    fileprivate func register(section: Any?) {
         if let errorSection =  section as? RGErrorPresenter, !sectionsRegistered.keys.contains(.error) {
             sectionsRegistered[.error] = errorSection.id
         }
@@ -171,6 +173,34 @@ class RGHomeElementDirector: RGHomeElementDirecting {
             if !isThereAnyRGFeed {
                 sectionsRegistered.removeValue(forKey: .feed)
             }
+        }
+    }
+}
+
+extension RGHomeElementDirector {
+    func encodeElements(coder: NSCoder) {
+        guard sectionsCount > 0 else {
+            return
+        }
+        
+        var count = 50
+        if sectionsCount < 50 {
+           count = homeSections.count - 1
+        }
+        let homeSectionsToSave = Array(homeSections[0..<count])
+        let container = RGFeedElement(after: nil, children: homeSectionsToSave as? [RGFeedDataContainer])
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(container)
+        coder.encode(data, forKey: "Feed")
+    }
+    
+    func decodeElements(coder: NSCoder, success: ()->()) {
+        if let decoded = coder.decodeObject(forKey: "Feed") {
+            let decoder = JSONDecoder()
+            let values = try! decoder.decode(RGFeedElement.self, from: decoded as! Data)
+            homeSections = values.children!
+            register(section: homeSections.first!)
+            success()
         }
     }
 }

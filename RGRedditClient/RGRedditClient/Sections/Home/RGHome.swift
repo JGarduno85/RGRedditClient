@@ -86,7 +86,7 @@ extension RGHome {
     
     func requestFeeds(success: ((RGFeedContainer?) -> Void)?, fail:((Error?) -> Void)?){
         isFetchInProgress = true
-        showLoader(home: self)
+        showLoader()
         homeServiceProvider.getHomeFeeds { [weak self] (feeds, error) in
             self?.isFetchInProgress = false
             guard error == nil else {
@@ -120,7 +120,7 @@ extension RGHome {
         let indexPaths = indexPath(for: feedsData)
         homeSectionTableView.beginUpdates()
         if let loaderIndex = removeLoader() {
-            removeLoaderRow(indexPath: IndexPath(row: loaderIndex, section: 0))
+            homeSectionTableView.deleteRows(at: [IndexPath(row: loaderIndex, section: 0)], with: .fade)
         }
         insertFeedsRows(using: indexPaths)
         homeSectionTableView.endUpdates()
@@ -144,14 +144,17 @@ extension RGHome {
     }
     
     fileprivate func loadError(error: Error?) {
-        showErrorMessage(home: self)
+        print("Error Called")
+        homeSectionTableView.beginUpdates()
+        showErrorMessage()
+        homeSectionTableView.endUpdates()
     }
     
-    fileprivate func showLoader(home: RGHome) {
-        guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
+    fileprivate func showLoader() {
+        guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        dataProvider.homeElementSectionDirector.insertSection(section: home.loaderSection)
+        dataProvider.homeElementSectionDirector.insertSection(section: loaderSection)
         homeSectionTableView.insertRows(at: [IndexPath(row: dataProvider.homeElementSectionDirector.sectionsCount - 1, section: 0)], with: .fade)
     }
     
@@ -164,27 +167,42 @@ extension RGHome {
         return indexLoader
     }
     
-    fileprivate func removeLoaderRow(indexPath: IndexPath) {
-        homeSectionTableView.deleteRows(at: [indexPath], with: .fade)
-    }
-    
-    fileprivate func showErrorMessage(home: RGHome) {
-        homeSectionTableView.beginUpdates()
+    fileprivate func showErrorMessage() {
         if let loaderIndex = removeLoader() {
-            removeLoaderRow(indexPath: IndexPath(row: loaderIndex, section: 0))
+            homeSectionTableView.deleteRows(at: [IndexPath(row: loaderIndex, section: 0)], with: .fade)
         }
-        guard let dataProvider = home.homeSectionDataProvider as? RGHomeSectionDataProvider else {
+        guard let dataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
             homeSectionTableView.endUpdates()
             return
         }
         if dataProvider.homeElementSectionDirector.sectionsCount <= 0 {
-            dataProvider.homeElementSectionDirector.insertSection(section: home.errorSection)
-            home.homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+            dataProvider.homeElementSectionDirector.insertSection(section: errorSection)
+            homeSectionTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         } else {
             let alert = RGBasicAlertFactory.createAlert(title: "Opps..!", message: "Something went wrong please try to refresh", actionTitle: "Ok", style: .default, handler: nil)
             self.present(alert, animated: true, completion: nil)
         }
-        homeSectionTableView.endUpdates()
+    }
+}
+
+extension RGHome {
+    override func encodeRestorableState(with coder: NSCoder) {
+        guard let homeSectionDataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
+            return
+        }
+        homeSectionDataProvider.homeElementSectionDirector.encodeElements(coder: coder)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        guard let homeSectionDataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
+            return
+        }
+        homeSectionDataProvider.homeElementSectionDirector.decodeElements(coder: coder) {
+            DispatchQueue.main.async {
+                self.homeSectionTableView.contentOffset = CGPoint.zero
+                self.homeSectionTableView.reloadData()
+            }
+        }
     }
 }
 
