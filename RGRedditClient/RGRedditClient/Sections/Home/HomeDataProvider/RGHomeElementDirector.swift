@@ -190,16 +190,22 @@ extension RGHomeElementDirector {
         let homeSectionsToSave = Array(homeSections[0..<count])
         let container = RGFeedElement(after: nil, children: homeSectionsToSave as? [RGFeedDataContainer])
         let encoder = JSONEncoder()
-        let data = try! encoder.encode(container)
-        coder.encode(data, forKey: "Feed")
+        if let data = try? encoder.encode(container) {
+            coder.encode(data, forKey: "Feed")
+        }
     }
     
     func decodeElements(coder: NSCoder, success: ()->()) {
         if let decoded = coder.decodeObject(forKey: "Feed") {
             let decoder = JSONDecoder()
-            let values = try! decoder.decode(RGFeedElement.self, from: decoded as! Data)
-            homeSections = values.children!
-            register(section: homeSections.first!)
+            guard let data = decoded as? Data, let values = try? decoder.decode(RGFeedElement.self, from: data) else {
+                return
+            }
+            guard let children = values.children, let firstChild = children.first else {
+                return
+            }
+            homeSections = children
+            register(section: firstChild)
             success()
         }
     }
