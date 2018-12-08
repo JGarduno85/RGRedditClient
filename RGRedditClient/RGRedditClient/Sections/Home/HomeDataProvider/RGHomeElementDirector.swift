@@ -37,7 +37,7 @@ protocol RGHomeElementDirecting: class {
     func removeSection(section: Any)
     func elementSection(at index: Int) -> (section: Any,sectionId: String?)?
     func index(of section: Any) -> Int?
-    func encodeElements(coder: NSCoder)
+    func encodeElements(coder: NSCoder, success: ()->())
     func decodeElements(coder: NSCoder, success: ()->())
 }
 
@@ -178,14 +178,13 @@ class RGHomeElementDirector: RGHomeElementDirecting {
 }
 
 extension RGHomeElementDirector {
-    func encodeElements(coder: NSCoder) {
+    func encodeElements(coder: NSCoder, success: ()->()) {
         guard sectionsCount > 0 else {
             return
         }
-        
-        var count = 50
-        if sectionsCount < 50 {
-           count = homeSections.count - 1
+        let count = homeSections.count - 1
+        guard count > 0  else {
+            return
         }
         let homeSectionsToSave = Array(homeSections[0..<count])
         let container = RGFeedElement(after: nil, children: homeSectionsToSave as? [RGFeedDataContainer])
@@ -193,6 +192,7 @@ extension RGHomeElementDirector {
         if let data = try? encoder.encode(container) {
             coder.encode(data, forKey: "Feed")
             UserDefaults.standard.set(true, forKey: "stateSaved")
+            success()
         }
     }
     

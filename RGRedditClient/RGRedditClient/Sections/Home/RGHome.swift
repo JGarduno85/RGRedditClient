@@ -25,18 +25,17 @@ class RGHome: UIViewController, RGHomePresenter {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         commonInit()
-        let stateSaved = UserDefaults.standard.value(forKey: "stateSaved") as? Bool ?? false
-        if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] == nil {
-            if !stateSaved {
-                requestFeeds(success: loadFeeds, fail: loadError)
-            }
-        }
     }
     
     fileprivate func commonInit() {
+        let stateSaved = UserDefaults.standard.value(forKey: "stateSaved") as? Bool ?? false
+        var lastPage: String?
+        if stateSaved {
+            lastPage = UserDefaults.standard.value(forKey: "lastPage") as? String
+        }
         errorSection = RGErrorPresenter()
         loaderSection = RGLoaderPresenter()
-        homeServiceProvider = RGHomeServiceProvider.createHomeServiceProvider()
+        homeServiceProvider = RGHomeServiceProvider.createHomeServiceProvider(page: lastPage)
         homeSectionDataProvider = RGHomeSectionDataProvider(homeSectionDirectorDelegate: self, homePresenter: self)
         homeSectionTableView.register(UINib(nibName: "RGErrorTableViewCell", bundle: nil), forCellReuseIdentifier: errorSection.id)
         homeSectionTableView.register(UINib(nibName: "RGLoaderTableViewCell", bundle: nil), forCellReuseIdentifier: loaderSection.id)
@@ -44,6 +43,11 @@ class RGHome: UIViewController, RGHomePresenter {
         homeSectionTableView.dataSource = homeSectionDataProvider
         homeSectionTableView.delegate = homeSectionDataProvider
         homeSectionTableView.prefetchDataSource = homeSectionDataProvider
+        if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] == nil {
+            if !stateSaved {
+                requestFeeds(success: loadFeeds, fail: loadError)
+            }
+        }
     }
 }
 
@@ -193,7 +197,11 @@ extension RGHome {
         guard let homeSectionDataProvider = homeSectionDataProvider as? RGHomeSectionDataProvider else {
             return
         }
-        homeSectionDataProvider.homeElementSectionDirector.encodeElements(coder: coder)
+        homeSectionDataProvider.homeElementSectionDirector.encodeElements(coder: coder) {
+            if let lastPage = self.homeServiceProvider.lastPageId {
+                UserDefaults.standard.set(lastPage, forKey: "lastPage")
+            }
+        }
     }
     
     override func decodeRestorableState(with coder: NSCoder) {

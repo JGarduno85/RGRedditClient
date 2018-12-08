@@ -9,12 +9,17 @@
 import Foundation
 
 protocol RGHomeServiceProviding {
+    var lastPageId: String? { get }
     func getHomeFeeds(completed:@escaping (RGFeedContainer?,Error?) -> Void)
 }
 
 class RGHomeServiceProvider: RGHomeServiceProviding {
-    private init() {
+    private init(page: String?) {
         self.paginator = RGHomeServicePaginator()
+        if let paginatorPage = page, !paginatorPage.isEmpty {
+            _ = self.paginator?.popLastPage()
+            self.paginator?.pushNextPage(page: RGHomeServicePage(page: page))
+        }
         if ProcessInfo.processInfo.environment["UNIT_TEST_MODE"] != nil {
             client = MockNetworkClient.createMockClient(jsonFile: "topRedditFeed", bundleId: "com.hpx.RGRedditClientTests")
             return
@@ -22,8 +27,8 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
         client = createNetworkClient()
     }
     
-    static func createHomeServiceProvider() -> RGHomeServiceProvider {
-        return RGHomeServiceProvider()
+    static func createHomeServiceProvider(page: String? = nil) -> RGHomeServiceProvider {
+        return RGHomeServiceProvider(page: page)
     }
     
     fileprivate var client: RGNetworkClient?
@@ -32,6 +37,12 @@ class RGHomeServiceProvider: RGHomeServiceProviding {
     var homeServicePaginator: RGHomeServicePaginator? {
         get {
             return paginator
+        }
+    }
+    
+    var lastPageId: String? {
+        get {
+            return paginator?.lastPage?.page
         }
     }
     
