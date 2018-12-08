@@ -76,11 +76,7 @@ extension RGHome {
     }
     
     @objc func imageFinish(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeRawPointer) {
-        if let _ = error {
-            print("Error")
-        } else {
-            print("imageSaved")
-        }
+        if let _ = error {} else {}
     }
 
 }
@@ -151,7 +147,6 @@ extension RGHome {
     }
     
     fileprivate func loadError(error: Error?) {
-        print("Error Called")
         homeSectionTableView.beginUpdates()
         showErrorMessage()
         homeSectionTableView.endUpdates()
